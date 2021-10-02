@@ -1,0 +1,14 @@
+{
+    "id": "staff",
+    "name": "Staff",
+    "description": "Plugin for Azuriom By Latshow",
+    "version": "1.0.0",
+    "url": "https://discord.gg/kdQ2Mn2Kcv",
+    "authors": [
+        "Latshow#4681 - linedev.fr"
+    ],
+    "providers": [
+        "\\Azuriom\\Plugin\\Staff\\Providers\\StaffServiceProvider",
+        "\\Azuriom\\Plugin\\Staff\\Providers\\RouteServiceProvider"
+    ]
+}
