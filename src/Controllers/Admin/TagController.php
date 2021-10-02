@@ -16,6 +16,7 @@ class TagController extends Controller
      */
     public function index()
     {
+        return view('staff::admin.tags.index');
     }
 
     /**

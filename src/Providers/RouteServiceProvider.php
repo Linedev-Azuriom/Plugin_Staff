@@ -12,7 +12,7 @@ class RouteServiceProvider extends BaseRouteServiceProvider
      *
      * @var string
      */
-    protected $namespace = 'Azuriom\Plugin\Shop\Controllers';
+    protected $namespace = 'Azuriom\Plugin\Staff\Controllers';
 
     /**
      * Define the routes for the application.
