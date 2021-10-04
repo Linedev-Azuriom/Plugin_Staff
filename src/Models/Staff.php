@@ -3,21 +3,35 @@
 namespace Azuriom\Plugin\Staff\Models;
 
 
+use Azuriom\Models\Traits\HasTablePrefix;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Staff
  *
  * @property integer $id
- * @property string $avatar
- * @property string $pseudo
- * @property string description
+ * @property string  $avatar
+ * @property string  $pseudo
+ * @property string  description
  *
  * @package Azuriom\Plugin\Staff\Models
  */
 class Staff extends Model
 {
+    use HasTablePrefix;
+
+    /**
+     * The table prefix associated with the model.
+     *
+     * @var string
+     */
     protected $prefix = 'staff_';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = ['avatar', 'pseudo', 'description'];
 
     /**
@@ -33,6 +47,6 @@ class Staff extends Model
      */
     public function links()
     {
-        return $this->morphToMany(Link::class, 'linkable');
+        return $this->hasMany(Link::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Staff\Providers;
 
 use Azuriom\Extensions\Plugin\BasePluginServiceProvider;
+use Azuriom\Models\Permission;
 
 class StaffServiceProvider extends BasePluginServiceProvider
 {
@@ -38,6 +39,10 @@ class StaffServiceProvider extends BasePluginServiceProvider
         $this->registerAdminNavigation();
 
         //
+
+        Permission::registerPermissions([
+            'staff.admin' => 'staff::admin.permission',
+        ]);
     }
 
     /**

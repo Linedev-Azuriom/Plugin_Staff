@@ -4,6 +4,7 @@ namespace Azuriom\Plugin\Staff\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Staff\Models\Tag;
+use Azuriom\Plugin\Staff\Requests\TagRequest;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 
@@ -31,10 +32,15 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
+     * @param  \Azuriom\Plugin\Staff\Requests\TagRequest  $tagRequest
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagRequest $tagRequest)
     {
+        Tag::create($tagRequest->validated());
+
+        return redirect()->route('staff.admin.tags.index')
+            ->with('success', trans('staff::admin.tags.created'));
     }
 
     /**

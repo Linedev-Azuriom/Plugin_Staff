@@ -19,14 +19,9 @@ class CreateStaffLinksTables extends Migration
             $table->string('name');
             $table->string('url');
             $table->string('icon');
+            $table->unsignedBigInteger('staff_id');
+            $table->foreign('staff_id')->references('id')->on('staff_staffs');
             $table->timestamps();
-        });
-
-
-        Schema::create('staff_linkables', function (Blueprint $table) {
-            $table->integer('link_id');
-            $table->integer('linkable_id');
-            $table->string('linkable_type');
         });
     }
 
@@ -38,6 +33,5 @@ class CreateStaffLinksTables extends Migration
     public function down()
     {
         Schema::dropIfExists('staff_links');
-        Schema::dropIfExists('staff_linkables');
     }
 }
