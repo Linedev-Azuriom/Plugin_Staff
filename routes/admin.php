@@ -1,8 +1,6 @@
 <?php
 
 use Azuriom\Plugin\Staff\Controllers\Admin\AdminController;
-use Azuriom\Plugin\Staff\Controllers\Admin\LinkController;
-use Azuriom\Plugin\Staff\Controllers\Admin\StaffController;
 use Azuriom\Plugin\Staff\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('can:staff.admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('index');
-    Route::resource('staff' , 'StaffController');
-    Route::resource('links' , 'LinkController');
-    Route::resource('tags' , 'TagController');
+//    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::resources([
+        '/' => AdminController::class,
+        'tags' => TagController::class,
+    ]);
 });

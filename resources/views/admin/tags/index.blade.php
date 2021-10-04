@@ -25,7 +25,6 @@
                 </div>
                 <div class="col-md-8">
                     <h3>Liste des tags</h3>
-
                 </div>
             </div>
         </div>

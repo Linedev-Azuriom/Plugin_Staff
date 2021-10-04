@@ -5,7 +5,6 @@ namespace Azuriom\Plugin\Staff\Controllers\Admin;
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Azuriom\Plugin\Staff\Requests\TagRequest;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 
 class TagController extends Controller
