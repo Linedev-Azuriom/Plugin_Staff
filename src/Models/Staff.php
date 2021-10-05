@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Model;
  * Class Staff
  *
  * @property integer $id
- * @property string  $avatar
- * @property string  $pseudo
- * @property string  description
+ * @property string $avatar
+ * @property string $pseudo
+ * @property string description
  *
  * @package Azuriom\Plugin\Staff\Models
  */
@@ -39,8 +39,9 @@ class Staff extends Model
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable');
+        return $this->morphToMany(Tag::class, 'taggable', 'staff_taggables');
     }
+
 
     /**
      * Get all of the links for the staff.
@@ -48,5 +49,14 @@ class Staff extends Model
     public function links()
     {
         return $this->hasMany(Link::class);
+    }
+
+    function isSelected($id)
+    {
+        if (!($ids = old('tags'))) {
+            $ids = $this->tags->pluck('id');
+        }
+        return collect($ids)
+            ->contains($id) ? 'selected' : '';
     }
 }

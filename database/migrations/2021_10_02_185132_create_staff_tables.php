@@ -13,7 +13,7 @@ class CreateStaffTables extends Migration
      */
     public function up()
     {
-        Schema::create('staff_staffs', function (Blueprint $table) {
+        Schema::create('staff_staff', function (Blueprint $table) {
             $table->id();
             $table->string('avatar')->nullable();
             $table->string('pseudo');
