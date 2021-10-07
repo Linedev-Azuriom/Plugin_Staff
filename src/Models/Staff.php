@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Staff\Models;
 
 
+use Azuriom\Models\Traits\HasImage;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Staff extends Model
 {
+    use HasImage;
     use HasTablePrefix;
 
     /**

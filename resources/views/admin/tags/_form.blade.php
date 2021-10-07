@@ -12,9 +12,9 @@
     </div>
 
     <div class="form-group">
-        <label for="colorInput">{{ trans('shop::admin.categories.enable') }}</label>
-        <input type="color" class="form-control" id="colorInput"
-               name="color" {{(old('color', $tag->color ?? ''))}}>
+        <label for="colorInput">{{ trans('messages.fields.color') }}</label>
+        <input type="color" class="form-control form-control-color color-picker @error('color') is-invalid @enderror" id="colorInput"
+               name="color"  value="{{ old('color', $tag->color ?? '#2196f3') }}" required>
         @error('color')
         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
         @enderror

@@ -16,7 +16,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('staff::admin.tags.index');
+        $tags = Tag::all();
+        return view('staff::admin.tags.index', compact('tags'));
     }
 
     /**
@@ -31,7 +32,8 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Azuriom\Plugin\Staff\Requests\TagRequest  $tagRequest
+     * @param \Azuriom\Plugin\Staff\Requests\TagRequest $tagRequest
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(TagRequest $tagRequest)
@@ -47,8 +49,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Response $response)
+    public function edit(Tag $tag)
     {
+        return view('staff::admin.tags.edit', compact('tag'));
     }
 
     /**
@@ -56,19 +59,27 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Response $response, Tag $tag)
+    public function update(TagRequest $request, Tag $tag)
     {
+        $tag->update($request->validated());
+        return redirect()->route('staff.admin.tags.index')
+            ->with('success', trans('staff::admin.tags.updated'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \Azuriom\Plugin\Staff\Models\Tag  $tag
+     * @param \Azuriom\Plugin\Staff\Models\Tag $tag
+     *
      * @return \Illuminate\Http\Response
      *
      * @throws \Exception
      */
     public function destroy(Tag $tag)
     {
+        $tag->delete();
+
+        return redirect()->route('staff.admin.tags.index')
+            ->with('success', trans('staff::admin.tags.deleted'));
     }
 }

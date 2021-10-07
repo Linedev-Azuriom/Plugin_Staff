@@ -15,7 +15,7 @@ class TagRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => ['required', 'unique:staff_tags','string', 'max:50'],
+            'name'  => ['required','string', 'max:50'],
             'color' => ['required', 'string', 'max:50', new Color()],
         ];
     }

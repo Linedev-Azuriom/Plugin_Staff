@@ -48,10 +48,10 @@
 @endpush
 
 @section('content')
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-xl-6 my-3">
+    <div class="row">
+        <div class="col-xl-6 my-3">
+            <div class="card shadow mb-4">
+                <div class="card-body">
                     <h3>Création d'un staff</h3>
                     <form action="{{ route('staff.admin.staff.store') }}" method="POST" id="staffForm">
                         @include('staff::admin.staff._form')
@@ -61,7 +61,11 @@
                         </button>
                     </form>
                 </div>
-                <div class="col-xl-6 my-3">
+            </div>
+        </div>
+        <div class="col-xl-6 my-3">
+            <div class="card shadow mb-4">
+                <div class="card-body">
                     <h3>Liste des staff</h3>
                     <div class="table-responsive">
                         <table class="table">
@@ -78,8 +82,12 @@
                                     <th scope="row">{{$staff->id}}</th>
                                     <td>{{$staff->pseudo}}</td>
                                     <td>
-                                        <a href="{{ route('staff.admin.staff.edit', $staff) }}" class="mx-1" title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i class="fas fa-edit"></i></a>
-                                        <a href="{{ route('staff.admin.staff.destroy', $staff) }}" class="mx-1" title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip" data-confirm="delete"><i class="fas fa-trash"></i></a>
+                                        <a href="{{ route('staff.admin.staff.edit', $staff) }}" class="mx-1"
+                                           title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i
+                                                class="fas fa-edit"></i></a>
+                                        <a href="{{ route('staff.admin.staff.destroy', $staff) }}" class="mx-1"
+                                           title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip"
+                                           data-confirm="delete"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @empty

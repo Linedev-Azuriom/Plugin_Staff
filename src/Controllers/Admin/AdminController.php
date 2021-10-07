@@ -9,6 +9,7 @@ use Azuriom\Plugin\Staff\Models\Link;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Azuriom\Plugin\Staff\Requests\StaffRequest;
+use Illuminate\Support\Arr;
 
 class AdminController extends Controller
 {
@@ -37,20 +38,27 @@ class AdminController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Azuriom\Plugin\staff\Requests\StaffRequest $staffRequest
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StaffRequest $staffRequest)
     {
-        $staff = Staff::create($staffRequest->validated());
+        debug($staffRequest->hasFile('avatar'));
+        die();
+        $staff = Staff::create(Arr::except($staffRequest->validated(), 'image'));
+
+        if ($staffRequest->hasFile('avatar')) {
+            $staff->storeImage($staffRequest->file('avatar'), true);
+        }
 
         $staff->tags()->sync($staffRequest->tags);
         $staff->save();
 
         foreach ($staffRequest->input('link') as $link) {
             Link::create([
-                'name' => $link['name'],
-                'url' => $link['url'],
-                'icon' => $link['icon'],
+                'name'     => $link['name'],
+                'url'      => $link['url'],
+                'icon'     => $link['icon'],
                 'staff_id' => $staff->id
             ]);
         }
@@ -67,7 +75,7 @@ class AdminController extends Controller
     public function edit(Staff $staff)
     {
         return view('staff::admin.staff.edit', [
-            'tags' => Tag::all(),
+            'tags'  => Tag::all(),
             'staff' => $staff,
         ]);
     }
@@ -76,7 +84,8 @@ class AdminController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Azuriom\Plugin\Shop\Requests\CategoryRequest $request
-     * @param \Azuriom\Plugin\Shop\Models\Category $category
+     * @param \Azuriom\Plugin\Shop\Models\Category          $category
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, Category $category)
@@ -91,6 +100,7 @@ class AdminController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \Azuriom\Plugin\Staff\Models\Staff $staff
+     *
      * @return \Illuminate\Http\Response
      *
      * @throws \Exception
@@ -99,7 +109,7 @@ class AdminController extends Controller
     {
         $staff->delete();
 
-        return redirect()->route('shop.admin.packages.index')
-            ->with('success', trans('shop::admin.categories.status.deleted'));
+        return redirect()->route('staff.admin.staff.index')
+            ->with('success', trans('staff::admin.staff.deleted'));
     }
 }
