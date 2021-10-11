@@ -55,7 +55,7 @@
             <a href="https://fontawesome.com/icons?d=gallery" title="fontawesome" target="_blank">fontawesome</a>
         </div>
         <div id="links">
-            @forelse($link ?? [] as $link)
+            @forelse($staff->links ?? [] as $link)
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <input type="text" class="form-control @error('link.*.icon') is-invalid @enderror"

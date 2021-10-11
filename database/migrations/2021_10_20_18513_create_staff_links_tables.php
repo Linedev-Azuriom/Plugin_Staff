@@ -16,9 +16,9 @@ class CreateStaffLinksTables extends Migration
     {
         Schema::create('staff_links', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('url');
-            $table->string('icon');
+            $table->string('name')->nullable();
+            $table->string('url')->nullable();
+            $table->string('icon')->nullable();
             $table->unsignedBigInteger('staff_id');
             $table->foreign('staff_id')->references('id')->on('staff_staff')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();

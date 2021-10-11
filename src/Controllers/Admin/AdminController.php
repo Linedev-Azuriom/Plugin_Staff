@@ -43,9 +43,9 @@ class AdminController extends Controller
      */
     public function store(StaffRequest $staffRequest)
     {
-        debug($staffRequest->hasFile('avatar'));
-        die();
-        $staff = Staff::create(Arr::except($staffRequest->validated(), 'image'));
+//        debug($staffRequest->hasFile('avatar'));
+//        die();
+        $staff = Staff::create(Arr::except($staffRequest->validated(), 'avatar'));
 
         if ($staffRequest->hasFile('avatar')) {
             $staff->storeImage($staffRequest->file('avatar'), true);
@@ -56,9 +56,9 @@ class AdminController extends Controller
 
         foreach ($staffRequest->input('link') as $link) {
             Link::create([
-                'name'     => $link['name'],
-                'url'      => $link['url'],
-                'icon'     => $link['icon'],
+                'name' => $link['name'],
+                'url' => $link['url'],
+                'icon' => $link['icon'],
                 'staff_id' => $staff->id
             ]);
         }
@@ -75,7 +75,7 @@ class AdminController extends Controller
     public function edit(Staff $staff)
     {
         return view('staff::admin.staff.edit', [
-            'tags'  => Tag::all(),
+            'tags' => Tag::all(),
             'staff' => $staff,
         ]);
     }
@@ -84,7 +84,7 @@ class AdminController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Azuriom\Plugin\Shop\Requests\CategoryRequest $request
-     * @param \Azuriom\Plugin\Shop\Models\Category          $category
+     * @param \Azuriom\Plugin\Shop\Models\Category $category
      *
      * @return \Illuminate\Http\Response
      */
@@ -107,9 +107,12 @@ class AdminController extends Controller
      */
     public function destroy(Staff $staff)
     {
+        foreach ($staff->links as $link){
+            $link->delete();
+        }
         $staff->delete();
 
-        return redirect()->route('staff.admin.staff.index')
-            ->with('success', trans('staff::admin.staff.deleted'));
+        return redirect()->route('staff.admin.index')
+            ->with('success', trans('staff::admin.delete'));
     }
 }

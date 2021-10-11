@@ -61,6 +61,8 @@ class TagController extends Controller
      */
     public function update(TagRequest $request, Tag $tag)
     {
+        dump($request);
+        die();
         $tag->update($request->validated());
         return redirect()->route('staff.admin.tags.index')
             ->with('success', trans('staff::admin.tags.updated'));
@@ -77,6 +79,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+
         $tag->delete();
 
         return redirect()->route('staff.admin.tags.index')
