@@ -15,9 +15,9 @@ class CreateStaffTables extends Migration
     {
         Schema::create('staff_staff', function (Blueprint $table) {
             $table->id();
-            $table->string('avatar')->nullable();
-            $table->string('pseudo');
+            $table->string('name');
             $table->longText('description')->nullable();
+            $table->string('image')->nullable();
             $table->timestamps();
         });
 

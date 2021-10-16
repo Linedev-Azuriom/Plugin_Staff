@@ -53,7 +53,7 @@ class StaffServiceProvider extends BasePluginServiceProvider
     protected function routeDescriptions()
     {
         return [
-            'staff.staffs.index' => 'staff::messages.title',
+            'staff.index' => 'staff::messages.title',
         ];
     }
 
@@ -72,8 +72,8 @@ class StaffServiceProvider extends BasePluginServiceProvider
                 'route' => 'staff.admin.*', // Route de la page
                 'permission' => 'staff.staff', // (Optionnel) Permission nécessaire pour voir cet onglet
                 'items' => [
-                    'staff.admin.index' => 'staff::admin.staff.create',
-                    'staff.admin.tags.index' => 'staff::admin.staff.tags.index'
+                    'staff.admin.index' => 'staff::admin.staff.index',
+                    'staff.admin.tags.index' => 'staff::admin.tag.index'
                 ],
             ],
         ];

@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Staff\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
+use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Azuriom\Plugin\Staff\Requests\TagRequest;
 use Illuminate\Support\Facades\Response;
@@ -41,7 +42,7 @@ class TagController extends Controller
         Tag::create($tagRequest->validated());
 
         return redirect()->route('staff.admin.tags.index')
-            ->with('success', trans('staff::admin.tags.created'));
+            ->with('success', trans('staff::admin.tag.created'));
     }
 
     /**
@@ -61,11 +62,9 @@ class TagController extends Controller
      */
     public function update(TagRequest $request, Tag $tag)
     {
-        dump($request);
-        die();
         $tag->update($request->validated());
         return redirect()->route('staff.admin.tags.index')
-            ->with('success', trans('staff::admin.tags.updated'));
+            ->with('success', trans('staff::admin.tag.updated'));
     }
 
     /**
@@ -79,10 +78,13 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-
+        $staffs = Staff::all();
+        foreach ($staffs as $staff) {
+            $staff->tags()->detach($tag);
+        }
         $tag->delete();
 
         return redirect()->route('staff.admin.tags.index')
-            ->with('success', trans('staff::admin.tags.deleted'));
+            ->with('success', trans('staff::admin.tag.deleted'));
     }
 }

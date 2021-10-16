@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [StaffHomeController::class, 'index'])->name('index');
+//Route::get('/', 'StaffHomeController@index')->name('index');

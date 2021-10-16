@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Staff\Models;
 
 
+use Azuriom\Models\Traits\Attachable;
 use Azuriom\Models\Traits\HasImage;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Illuminate\Database\Eloquent\Model;
@@ -11,14 +12,18 @@ use Illuminate\Database\Eloquent\Model;
  * Class Staff
  *
  * @property integer $id
- * @property string $avatar
- * @property string $pseudo
- * @property string description
+ * @property string|null $image
+ * @property string  $name
+ * @property string  description
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  *
  * @package Azuriom\Plugin\Staff\Models
  */
 class Staff extends Model
 {
+
+    use Attachable;
     use HasImage;
     use HasTablePrefix;
 
@@ -34,7 +39,7 @@ class Staff extends Model
      *
      * @var array
      */
-    protected $fillable = ['avatar', 'pseudo', 'description'];
+    protected $fillable = ['name', 'description'];
 
     /**
      * Get all of the tags for the staff.

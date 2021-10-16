@@ -3,16 +3,23 @@
 namespace Azuriom\Plugin\Staff\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
-use Azuriom\Plugin\Shop\Models\Category;
-use Azuriom\Plugin\Shop\Requests\CategoryRequest;
 use Azuriom\Plugin\Staff\Models\Link;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Azuriom\Plugin\Staff\Requests\StaffRequest;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
+
+    /**
+     * The storage path for uploaded images.
+     *
+     * @var string
+     */
+    protected $imagesPath = 'staff';
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +29,8 @@ class AdminController extends Controller
     {
         $staffs = Staff::all();
         $tags = Tag::all();
-        return view('staff::admin.staff.index', compact('staffs', "tags"));
+        $pendingId = old('pending_id', Str::uuid());
+        return view('staff::admin.staff.index', compact('staffs', "tags", 'pendingId'));
     }
 
     /**
@@ -37,34 +45,36 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Azuriom\Plugin\staff\Requests\StaffRequest $staffRequest
+     * @param \Azuriom\Plugin\staff\Requests\StaffRequest $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
-    public function store(StaffRequest $staffRequest)
+    public function store(StaffRequest $request)
     {
-//        debug($staffRequest->hasFile('avatar'));
-//        die();
-        $staff = Staff::create(Arr::except($staffRequest->validated(), 'avatar'));
+        $staff = Staff::create(Arr::except($request->validated(), 'image'));
 
-        if ($staffRequest->hasFile('avatar')) {
-            $staff->storeImage($staffRequest->file('avatar'), true);
+
+        if ($request->hasFile('image')) {
+            $staff->storeImage($request->file('image'), true);
         }
 
-        $staff->tags()->sync($staffRequest->tags);
-        $staff->save();
+        $staff->persistPendingAttachments($request->input('pending_id'));
 
-        foreach ($staffRequest->input('link') as $link) {
-            Link::create([
-                'name' => $link['name'],
-                'url' => $link['url'],
-                'icon' => $link['icon'],
-                'staff_id' => $staff->id
-            ]);
+        $staff->tags()->sync($request->tags);
+
+        foreach ($request->input('link') as $link) {
+            if (!empty($link['name']) && !empty($link['url']) && !empty($link['icon'])) {
+                Link::create([
+                    'name'     => $link['name'],
+                    'url'      => $link['url'],
+                    'icon'     => $link['icon'],
+                    'staff_id' => $staff->id
+                ]);
+            }
         }
 
         return redirect()->route('staff.admin.index')
-            ->with('success', trans('staff::admin.created'));
+            ->with('success', trans('staff::admin.staff.created'));
     }
 
     /**
@@ -75,7 +85,7 @@ class AdminController extends Controller
     public function edit(Staff $staff)
     {
         return view('staff::admin.staff.edit', [
-            'tags' => Tag::all(),
+            'tags'  => Tag::all(),
             'staff' => $staff,
         ]);
     }
@@ -84,16 +94,33 @@ class AdminController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Azuriom\Plugin\Shop\Requests\CategoryRequest $request
-     * @param \Azuriom\Plugin\Shop\Models\Category $category
+     * @param \Azuriom\Plugin\Shop\Models\Category          $category
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(StaffRequest $request, Staff $staff)
     {
-//        $category->update($request->validated());
-//
-//        return redirect()->route('shop.admin.packages.index')
-//            ->with('success', trans('shop::admin.categories.status.updated'));
+        if ($request->hasFile('image')) {
+            $staff->storeImage($request->file('image'));
+        }
+
+        $staff->update(Arr::except($request->validated(), 'image'));
+
+        $staff->tags()->sync($request->tags);
+
+        foreach ($request->input('link') as $link) {
+            if (!empty($link['name']) && !empty($link['url']) && !empty($link['icon'])) {
+                Link::updateOrCreate([
+                    'name'     => $link['name'],
+                    'url'      => $link['url'],
+                    'icon'     => $link['icon'],
+                    'staff_id' => $staff->id
+                ]);
+            }
+        }
+
+        return redirect()->route('staff.admin.index')
+            ->with('success', trans('staff::admin.staff.updated'));
     }
 
     /**
@@ -107,12 +134,12 @@ class AdminController extends Controller
      */
     public function destroy(Staff $staff)
     {
-        foreach ($staff->links as $link){
+        foreach ($staff->links as $link) {
             $link->delete();
         }
         $staff->delete();
 
         return redirect()->route('staff.admin.index')
-            ->with('success', trans('staff::admin.delete'));
+            ->with('success', trans('staff::admin.staff.deleted'));
     }
 }

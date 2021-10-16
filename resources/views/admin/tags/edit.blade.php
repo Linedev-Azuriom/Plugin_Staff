@@ -1,12 +1,11 @@
 @extends('admin.layouts.admin')
 
-@section('title', trans('staff::admin.title'))
-
+@section('title', trans('staff::admin.tag.title-edit') .' : '.$tag->name)
 
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-body">
-            <h3>Création d'un staff</h3>
+            <h3>{{ trans('staff::admin.tag.title-edit') }}</h3>
             <form action="{{ route('staff.admin.tags.update',$tag)}}" method="POST" id="staffForm">
                 @include('staff::admin.tags._form')
                 @method('PUT')

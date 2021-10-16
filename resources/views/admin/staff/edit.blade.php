@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', trans('staff::admin.title'))
+@section('title', trans('staff::admin.staff.title-edit') .': '.$staff->name)
 
 @push('footer-scripts')
     <script>
@@ -17,7 +17,6 @@
         function addLinkListener(el) {
             el.addEventListener('click', function () {
                 const element = el.parentNode.parentNode.parentNode.parentNode;
-
                 element.parentNode.removeChild(element);
             });
         }
@@ -50,10 +49,13 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-body">
-            <h3>Création d'un staff</h3>
-            <form action="{{ route('staff.admin.staff.update',$staff)}}" method="POST" id="staffForm">
-                @include('staff::admin.staff._form')
+            <h3>{{ trans('staff::admin.staff.title-edit') }}</h3>
+            <form action="{{ route('staff.admin.staff.update',$staff)}}" method="POST" id="staffForm" enctype="multipart/form-data">
                 @method('PUT')
+
+                @include('admin.elements.editor', ['imagesUploadUrl' => route('admin.posts.attachments.store', $staff)])
+
+                @include('staff::admin.staff._form')
 
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}

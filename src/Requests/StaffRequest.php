@@ -14,12 +14,12 @@ class StaffRequest extends FormRequest
     public function rules()
     {
         return [
-            'pseudo'      => ['required', 'string', 'max:50'],
+            'name'        => ['required', 'string', 'max:50'],
             'description' => ['nullable', 'string', 'max:350'],
-            'avatar'      => ['nullable', 'image'],
             'link.*.icon' => ['nullable', 'string', 'max:100'],
             'link.*.name' => ['nullable', 'string', 'max:50'],
             'link.*.url'  => ['nullable', 'string', 'max:250'],
+            'image'       => ['nullable','image'],
         ];
     }
 }

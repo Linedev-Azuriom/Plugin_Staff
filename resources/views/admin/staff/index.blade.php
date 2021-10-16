@@ -52,8 +52,12 @@
         <div class="col-xl-6 my-3">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <h3>Création d'un staff</h3>
-                    <form action="{{ route('staff.admin.staff.store') }}" method="POST" id="staffForm">
+                    <h3>{{ trans('staff::admin.staff.title') }}</h3>
+                    <form action="{{ route('staff.admin.staff.store') }}" method="POST" id="staffForm"  enctype="multipart/form-data">
+                        <input type="hidden" name="pending_id" value="{{ $pendingId }}">
+
+                        @include('admin.elements.editor', ['imagesUploadUrl' => route('admin.posts.attachments.pending', $pendingId)])
+
                         @include('staff::admin.staff._form')
 
                         <button type="submit" class="btn btn-primary">
@@ -66,7 +70,7 @@
         <div class="col-xl-6 my-3">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <h3>Liste des staff</h3>
+                    <h3>{{ trans('staff::admin.staff.title-list') }}</h3>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -80,7 +84,7 @@
                             @forelse($staffs ?? [] as $staff)
                                 <tr>
                                     <th scope="row">{{$staff->id}}</th>
-                                    <td>{{$staff->pseudo}}</td>
+                                    <td>{{$staff->name}}</td>
                                     <td>
                                         <a href="{{ route('staff.admin.staff.edit', $staff) }}" class="mx-1"
                                            title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i

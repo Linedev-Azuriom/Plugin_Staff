@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', trans('staff::admin.title'))
+@section('title', trans('staff::admin.tag.title'))
 
 @section('content')
     <div class="row">
@@ -8,8 +8,7 @@
             <div class="card shadow mb-4">
                 <div class="card-body">
                     <form action="{{ route('staff.admin.tags.store') }}" method="POST">
-                        Création d'un tag
-                        </h3>
+                        <h3>{{ trans('staff::admin.tag.title') }}</h3>
                         @include('staff::admin.tags._form')
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
@@ -21,7 +20,7 @@
         <div class="col-md-6">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <h3>Liste des tags</h3>
+                    <h3>{{ trans('staff::admin.tag.title-list') }}</h3>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
