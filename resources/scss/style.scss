@@ -1,0 +1,93 @@
+@import "mixin";
+@import "variables";
+#staff {
+    .h1 {
+        font-size: 1.5rem;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .container-fluid {
+        max-width: 1400px;
+    }
+
+    .card {
+        background: #fff;
+        box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+        border: 1;
+        border-radius: 1rem;
+        min-width: 250px;
+
+        h5 {
+            overflow: hidden;
+            height: 80px;
+            font-weight: 300;
+            font-size: 1rem;
+
+            a {
+                color: black;
+                text-decoration: none;
+            }
+        }
+
+        h2 {
+            font-size: 1rem;
+        }
+    }
+
+    .img-hover-zoom--colorize {
+        img {
+            border-radius: 50%;
+            width: 150px;
+            height: auto;
+            margin-top: 20px;
+            padding: 1px;
+            transition: transform .5s;
+            filter: grayscale(100%);
+        }
+
+        &:hover {
+            img {
+                filter: grayscale(0);
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .role {
+        color: #7a7a7a;
+    }
+
+    .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fab {
+        font-size: 1.5rem;
+        color: darkgray;
+        transition: transform .5s;
+
+        &:hover {
+            color: black;
+            transform: scale(1.1);
+        }
+    }
+
+    @media only screen and (min-width: 1200px) {
+        .img-hover-zoom--colorize {
+            img {
+                width: 200px;
+            }
+        }
+        .h1 {
+            font-size: 2rem;
+        }
+        h1 {
+            font-size: 2rem;
+        }
+    }
+}

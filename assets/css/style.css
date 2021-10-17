@@ -1,0 +1,70 @@
+#staff .h1 {
+  font-size: 1.5rem;
+}
+#staff h1 {
+  font-size: 1.5rem;
+}
+#staff .container-fluid {
+  max-width: 1400px;
+}
+#staff .card {
+  background: #fff;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+  border: 1;
+  border-radius: 1rem;
+  min-width: 250px;
+}
+#staff .card h5 {
+  overflow: hidden;
+  height: 80px;
+  font-weight: 300;
+  font-size: 1rem;
+}
+#staff .card h5 a {
+  color: black;
+  text-decoration: none;
+}
+#staff .card h2 {
+  font-size: 1rem;
+}
+#staff .img-hover-zoom--colorize img {
+  border-radius: 50%;
+  width: 150px;
+  height: auto;
+  margin-top: 20px;
+  padding: 1px;
+  transition: transform 0.5s;
+  filter: grayscale(100%);
+}
+#staff .img-hover-zoom--colorize:hover img {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}
+#staff .role {
+  color: #7a7a7a;
+}
+#staff .box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#staff .fab {
+  font-size: 1.5rem;
+  color: darkgray;
+  transition: transform 0.5s;
+}
+#staff .fab:hover {
+  color: black;
+  transform: scale(1.1);
+}
+@media only screen and (min-width: 1200px) {
+  #staff .img-hover-zoom--colorize img {
+    width: 200px;
+  }
+  #staff .h1 {
+    font-size: 2rem;
+  }
+  #staff h1 {
+    font-size: 2rem;
+  }
+}
