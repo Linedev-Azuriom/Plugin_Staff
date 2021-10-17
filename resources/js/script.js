@@ -5,8 +5,11 @@ window.addEventListener("DOMContentLoaded", (event) => {
         startAt: 0,
         perView: 3,
         breakpoints:{
-            800: {
+            992: {
                 perView: 2
+            },
+            768: {
+                perView: 1
             }
         }
     }).mount()

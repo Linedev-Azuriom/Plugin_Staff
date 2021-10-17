@@ -13,22 +13,28 @@
 @endpush
 
 @section('content')
-    <div class="container content" id="staff">
-        <div class="glide_staff">
-            <div class="glide glide__track" data-glide-el="track">
-                <ul class="glide__slides">
-                    @each('staff::_staff', $staffs, 'staff')
-                </ul>
-                <div class="glide__bullets" data-glide-el="controls[nav]">
-                    <button class="glide__bullet" data-glide-dir="=0"></button>
-                    <button class="glide__bullet" data-glide-dir="=1"></button>
-                    <button class="glide__bullet" data-glide-dir="=2"></button>
-                </div>
-                <div class="glide__arrows" data-glide-el="controls">
-                    <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
-                    <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
+    <div class="container content mt-5" id="staff">
+        @if($staffs->count() >= 1)
+            <div class="glide_staff">
+                <div class="glide__track" data-glide-el="track">
+                    <ul class="glide__slides">
+                        @each('staff::_staff', $staffs, 'staff')
+                    </ul>
+                    <div class="glide__bullets" data-glide-el="controls[nav]">
+                        <button class="glide__bullet" data-glide-dir="=0"></button>
+                        <button class="glide__bullet" data-glide-dir="=1"></button>
+                        <button class="glide__bullet" data-glide-dir="=2"></button>
+                    </div>
+                    <div class="glide__arrows" data-glide-el="controls">
+                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><i class="fas fa-chevron-left"></i></button>
+                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
             </div>
-        </div>
+        @else
+            <div class="alert alert-warning" role="alert">
+                {{ trans('staff::messages.staff-empty') }}
+            </div>
+        @endif
     </div>
 @endsection

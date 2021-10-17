@@ -1,93 +1,136 @@
 @import "mixin";
 @import "variables";
-#staff {
-    .h1 {
-        font-size: 1.5rem;
+
+.h1,
+h1 {
+    font-size: 1.5rem;
+    color: black;
+}
+
+.card {
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    border: 1px;
+    border-radius: 1rem;
+    min-width: 250px;
+    height: 337px;
+
+    &:active {
+        .description {
+            transform: translateY(0);
+            transition: transform 0.321s ease-in;
+        }
     }
 
-    h1 {
-        font-size: 1.5rem;
-    }
-
-    .container-fluid {
-        max-width: 1400px;
-    }
-
-    .card {
-        background: #fff;
+    .description {
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
         box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
-        border: 1;
-        border-radius: 1rem;
-        min-width: 250px;
+        background: #fff;
+        position: absolute;
+        top: 0;
+        transform: translateY(-100%);
+        left: 0;
+        width: 100%;
+        padding: 15px;
+        z-index: 10;
+        transition: transform .3s ease-in;
+        height: 230px;
+        overflow-y: auto;
 
-        h5 {
-            overflow: hidden;
-            height: 80px;
-            font-weight: 300;
-            font-size: 1rem;
-
-            a {
-                color: black;
-                text-decoration: none;
-            }
-        }
-
-        h2 {
-            font-size: 1rem;
+        p {
+            color: black;
         }
     }
 
+    h5 {
+        overflow: hidden;
+        height: 80px;
+        font-weight: 300;
+        font-size: 1rem;
+
+        a {
+            color: black;
+            text-decoration: none;
+        }
+    }
+
+    h2 {
+        font-size: 1rem;
+    }
+}
+
+.img-hover-zoom--colorize {
+    img {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        margin-top: 20px;
+        padding: 1px;
+        transition: transform .5s;
+        filter: grayscale(100%);
+    }
+
+    &:hover {
+        img {
+            filter: grayscale(0);
+            transform: scale(1.05);
+        }
+    }
+}
+
+.role {
+    color: #7a7a7a;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fab {
+    font-size: 1.5rem;
+    color: darkgray;
+    transition: transform .5s;
+
+    &:hover {
+        color: black;
+        transform: scale(1.1);
+    }
+}
+
+.glide_staff {
+    position: relative;
+
+    .glide__arrows {
+        width: 100%;
+
+        .glide__arrow {
+            color: black;
+            background-color: #fff;
+        }
+    }
+
+
+    .glide__bullets {
+        bottom: 0;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .card {
+        height: 397px;
+    }
     .img-hover-zoom--colorize {
         img {
-            border-radius: 50%;
-            width: 150px;
-            height: auto;
-            margin-top: 20px;
-            padding: 1px;
-            transition: transform .5s;
-            filter: grayscale(100%);
-        }
-
-        &:hover {
-            img {
-                filter: grayscale(0);
-                transform: scale(1.05);
-            }
+            width: 200px;
+            height: 200px;
         }
     }
-
-    .role {
-        color: #7a7a7a;
-    }
-
-    .box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .fab {
-        font-size: 1.5rem;
-        color: darkgray;
-        transition: transform .5s;
-
-        &:hover {
-            color: black;
-            transform: scale(1.1);
-        }
-    }
-
-    @media only screen and (min-width: 1200px) {
-        .img-hover-zoom--colorize {
-            img {
-                width: 200px;
-            }
-        }
-        .h1 {
-            font-size: 2rem;
-        }
-        h1 {
-            font-size: 2rem;
-        }
+    .h1,
+    h1 {
+        font-size: 2rem;
     }
 }
