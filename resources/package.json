@@ -1,0 +1,25 @@
+{
+    "name": "plugin staff",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "laravel-mix": "^6.0.6",
+        "postcss": "^8.2.6",
+        "resolve-url-loader": "^3.1.0",
+        "sass": "^1.32.7",
+        "sass-loader": "^8.0.0"
+    },
+    "dependencies": {
+        "@glidejs/glide": "^3.4.1"
+    }
+}
