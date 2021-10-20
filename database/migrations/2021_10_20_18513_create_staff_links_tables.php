@@ -20,7 +20,7 @@ class CreateStaffLinksTables extends Migration
             $table->string('url')->nullable();
             $table->string('icon')->nullable();
             $table->unsignedBigInteger('staff_id');
-            $table->foreign('staff_id')->references('id')->on('staff_staff')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('staff_id')->references('id')->on('staff_staff')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -4,6 +4,9 @@ namespace Azuriom\Plugin\Staff\Providers;
 
 use Azuriom\Extensions\Plugin\BasePluginServiceProvider;
 use Azuriom\Models\Permission;
+use Azuriom\Plugin\Staff\Models\Staff;
+use Azuriom\Plugin\Staff\Models\Tag;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class StaffServiceProvider extends BasePluginServiceProvider
 {
@@ -38,7 +41,10 @@ class StaffServiceProvider extends BasePluginServiceProvider
 
         $this->registerAdminNavigation();
 
-        //
+        Relation::morphMap([
+            'staff' => Staff::class,
+            'tag' => Tag::class,
+        ]);
 
         Permission::registerPermissions([
             'staff.admin' => 'staff::admin.permission',
