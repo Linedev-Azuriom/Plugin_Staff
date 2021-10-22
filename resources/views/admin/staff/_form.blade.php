@@ -22,17 +22,23 @@
     </div>
     <div class="form-group">
         <label for="imageInput">{{ trans('messages.fields.image') }}</label>
-        <div class="small">{{ trans('staff::admin.staff.default-skin') }}</div>
+        @if(game()->name() === 'Minecraft')
+            <div class="small">{{ trans('staff::admin.staff.default-skin') }}</div>
+        @endif
         <div class="custom-file">
-            <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="imageInput" name="image" accept=".jpg,.jpeg,.jpe,.png,.gif,.bmp,.svg,.webp" data-image-preview="imagePreview">
-            <label class="custom-file-label" data-browse="{{ trans('messages.actions.browse') }}">{{ trans('messages.actions.choose-file') }}</label>
+            <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="imageInput"
+                   name="image" accept=".jpg,.jpeg,.jpe,.png,.gif,.bmp,.svg,.webp" data-image-preview="imagePreview">
+            <label class="custom-file-label"
+                   data-browse="{{ trans('messages.actions.browse') }}">{{ trans('messages.actions.choose-file') }}</label>
 
             @error('image')
             <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
             @enderror
         </div>
 
-        <img src="{{ ($staff->image ?? false) ? $staff->imageUrl() : '#' }}" class="mt-2 img-fluid rounded img-preview {{ ($staff->image ?? false) ? '' : 'd-none' }}" alt="Image" id="imagePreview">
+        <img src="{{ ($staff->image ?? false) ? $staff->imageUrl() : '#' }}"
+             class="mt-2 img-fluid rounded img-preview {{ ($staff->image ?? false) ? '' : 'd-none' }}" alt="Image"
+             id="imagePreview">
     </div>
     <div class="form-group">
         <label for="">Tags</label>
@@ -69,7 +75,9 @@
                                    placeholder="{{ trans('theme::lang.link') }}"
                                    value="{{ old('link'.$key.'url', $link->url ?? '')}}">
                             <div class="input-group-append">
-                                <a href="{{ route('staff.admin.links.destroy', old('link'.$key.'url', $link ?? '')) }}" class="btn btn-outline-danger " title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip" data-confirm="delete">
+                                <a href="{{ route('staff.admin.links.destroy', old('link'.$key.'url', $link ?? '')) }}"
+                                   class="btn btn-outline-danger " title="{{ trans('messages.actions.delete') }}"
+                                   data-toggle="tooltip" data-confirm="delete">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
