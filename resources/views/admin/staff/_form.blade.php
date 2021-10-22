@@ -22,6 +22,7 @@
     </div>
     <div class="form-group">
         <label for="imageInput">{{ trans('messages.fields.image') }}</label>
+        <div class="small">{{ trans('staff::admin.staff.default-skin') }}</div>
         <div class="custom-file">
             <input type="file" class="custom-file-input  @error('image') is-invalid @enderror" id="imageInput" name="image" accept=".jpg,.jpeg,.jpe,.png,.gif,.bmp,.svg,.webp" data-image-preview="imagePreview">
             <label class="custom-file-label" data-browse="{{ trans('messages.actions.browse') }}">{{ trans('messages.actions.choose-file') }}</label>

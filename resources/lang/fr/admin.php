@@ -8,6 +8,7 @@ return [
         'title'      => 'Crée un staff',
         'title-edit' => 'Modifier le staff ',
         'title-list' => 'Liste des staff',
+        'default-skin' => 'Par défaut skin minecraft',
         'created'    => 'Staff créé.',
         'updated'    => 'Staff mis à jour.',
         'deleted'    => 'Staff supprimé.',
