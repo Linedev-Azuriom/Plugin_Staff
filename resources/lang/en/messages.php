@@ -2,5 +2,5 @@
 
 return [
     'title' => 'Staff',
-    'staff-empty' => 'Staff this empty.',
+    'staff-empty' => 'Staff is empty.',
 ];
