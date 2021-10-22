@@ -8,17 +8,17 @@
         <div class="text-center">
             <div class="img-hover-zoom img-hover-zoom--colorize">
                 <img class="shadow"
-                     src="{{isset($staff->image)?image_url('../staff/'.$staff->image) : 'https://minotar.net/helm/'.$staff->name.'/100.png'}}"
-                     alt="Another Image zoom-on-hover effect">
+                     src="{{isset($staff->image) && $staff->image != null ? image_url('../staff/'.$staff->image) :  (game()->name() === 'Minecraft' ? 'https://crafthead.net/helm/'.$staff->name.'/100.png' : '') }}"
+                     alt="{{$staff->name}}">
+
             </div>
         </div>
         <div class="card-body">
-            <div class="clearfix mb-3">
-            </div>
+            <div class="clearfix mb-3"></div>
             <div class="my-2 text-center">
                 <h1>{{$staff->name}}</h1>
             </div>
-            <div class="mb-3 d-flex justify-content-center">
+            <div class="mb-1 d-flex flex-wrap justify-content-center">
                 @if($staff->tags->count() >= 1)
                     @foreach($staff->tags as $tag)
                         <span class="m-1">
