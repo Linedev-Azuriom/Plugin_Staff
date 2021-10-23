@@ -80,7 +80,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \Azuriom\Plugin\Satff\Models\Staff $staff
+     * @param \Azuriom\Plugin\Staff\Models\Staff $staff
      */
     public function edit(Staff $staff)
     {
@@ -93,8 +93,8 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Azuriom\Plugin\Shop\Requests\CategoryRequest $request
-     * @param \Azuriom\Plugin\Shop\Models\Category          $category
+     * @param \Azuriom\Plugin\Staff\Requests\StaffRequest $request
+     * @param \Azuriom\Plugin\Staff\Models\Staff          $category
      *
      * @return \Illuminate\Http\Response
      */

@@ -78,6 +78,7 @@ class StaffServiceProvider extends BasePluginServiceProvider
                 'route' => 'staff.admin.*', // Route de la page
                 'permission' => 'staff.staff', // (Optionnel) Permission nécessaire pour voir cet onglet
                 'items' => [
+                    'staff.admin.settings.index' => 'staff::admin.settings.index',
                     'staff.admin.index' => 'staff::admin.staff.index',
                     'staff.admin.tags.index' => 'staff::admin.tag.index'
                 ],
