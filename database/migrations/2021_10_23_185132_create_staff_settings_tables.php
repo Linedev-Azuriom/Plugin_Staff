@@ -16,7 +16,7 @@ class CreateStaffSettingsTables extends Migration
         Schema::create('staff_settings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('setting')->nullable();
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
 

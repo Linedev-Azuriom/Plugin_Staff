@@ -16,10 +16,14 @@ class SettingController extends Controller
      */
     public function index()
     {
-
-        dump(Setting::all());
-        die();
-        $setting = Setting::first();
+        if (Setting::first()) {
+            $setting = Setting::first();
+        } else {
+            $setting = Setting::create([
+                'name' => 'global',
+                'settings' => '{}'
+            ]);
+        };
         return view('staff::admin.settings.index', compact('setting',));
     }
 
@@ -62,31 +66,16 @@ class SettingController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Azuriom\Plugin\Staff\Requests\SettingRequest $request
-     * @param \Azuriom\Plugin\Staff\Models\Setting          $setting
+     * @param \Azuriom\Plugin\Staff\Models\Setting $setting
      *
      * @return \Illuminate\Http\Response
      */
     public function update(SettingRequest $request, Setting $setting)
     {
+//        dump($request);
+//        die();
+        Setting::first()->update($request->validated());
 
-        $collect = []; // empty array for collect customised inputs
-
-        foreach($request->all() as $input_key => $input_value){ // split input one by one
-            if ($input_key !== 'name'){
-                $collect[] = array( //customised inputs
-                                    "effect" => $input_value,
-                                    "value" => $input_value
-
-                );
-            }
-        }
-        dump($collect);
-        die();
-
-        $request->setting = json_encode($collect);
-        Setting::updateOrCreate($request->validated());
-
-        $setting->update($request->validated());
         return redirect()->route('staff.admin.settings.index')
             ->with('success', trans('staff::admin.setting.updated'));
     }

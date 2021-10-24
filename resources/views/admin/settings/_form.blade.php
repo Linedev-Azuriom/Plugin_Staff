@@ -1,20 +1,14 @@
 @csrf
+<input type="hidden" name="name" value="global">
 <div class="card-body">
-    <input type="hidden" class="form-control" id="nameInput" name="name"
-           value="global" required>
-d
-    @foreach($setting->setting ?? [] as $setting)
-        <div class="form-group">
-            <label for="descriptionInput">{{ trans('messages.fields.description') }}</label>
-            <input type="text" class="form-control @error('setting.description') is-invalid @enderror"
-                   id="descriptionInput"
-                   name="setting[description]"
-                   value="{{ old('description', $setting->description ?? '') }}">
-
-            @error('setting.description')
-            <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-            @enderror
-        </div>
-    @endforeach
+    @php(dump($setting->setting))
+    <div class="form-group custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="settingDescription" name="settings[0][description]" @if($setting->setting->description ?? true) checked @endif>
+        <label class="custom-control-label" for="settingDescription">Afficher la désription directement dans le fenettre du staff</label>
+    </div>
+    <div class="form-group custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="settingEffect" name="settings[0][effect]" @if($setting->setting->effect ?? true) checked @endif>
+        <label class="custom-control-label" for="settingEffect">Afficher l'éffet au survol de la fenetre</label>
+    </div>
 </div>
 

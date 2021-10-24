@@ -2,11 +2,22 @@
 
 namespace Azuriom\Plugin\Staff\Requests;
 
-use Azuriom\Rules\Color;
+use Azuriom\Http\Requests\Traits\ConvertCheckbox;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SettingRequest extends FormRequest
 {
+    use ConvertCheckbox;
+
+    /**
+     * The checkboxes attributes.
+     *
+     * @var array
+     */
+    protected $checkboxes = [
+        'settings.0.description', 'settings.0.effect',
+    ];
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -15,8 +26,10 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => ['required','string', 'max:50'],
-            'setting' => ['nullable', 'json'],
+            'name' => 'string',
+            'settings.*' => 'filled',
+            'settings.*.effect' => ['filled', 'boolean'],
+            'settings.*.description' => ['filled', 'boolean'],
         ];
     }
 }

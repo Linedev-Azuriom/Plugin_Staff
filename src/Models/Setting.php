@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Staff
  *
- * @property integer        $id
- * @property string         $name
- * @property object         $setting
+ * @property integer $id
+ * @property string $name
+ * @property object $settings
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -33,10 +33,22 @@ class Setting extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'setting'];
+    protected $fillable = ['name', 'settings'];
 
     protected $casts = [
-        'setting' => 'object'
+        'settings' => 'array'
     ];
 
+
+    public function setSettingsAttribute($value)
+    {
+        $settings = [];
+        foreach ($value as $array_item) {
+            $settings[] = $array_item;
+        }
+        dump($settings);
+        die();
+
+        $this->attributes['settings'] = json_encode($settings);
+    }
 }
