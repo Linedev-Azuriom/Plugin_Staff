@@ -72,7 +72,7 @@ class SettingController extends Controller
      */
     public function update(SettingRequest $request, Setting $setting)
     {
-//        dump($request);
+//        dump($request->input('settings'));
 //        die();
         Setting::first()->update($request->validated());
 

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property integer $id
  * @property string $name
- * @property object $settings
+ * @property array $settings
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -33,22 +33,23 @@ class Setting extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'settings'];
+    protected $fillable = ['name', 'settings', 'settings.*.effect', 'settings.*.description'];
 
     protected $casts = [
-        'settings' => 'array'
+        'settings' => 'array',
+        'settings.*.effect' => 'boolean',
+        'settings.*.description' => 'boolean'
     ];
 
 
     public function setSettingsAttribute($value)
     {
         $settings = [];
+        dump($value);
+        die();
         foreach ($value as $array_item) {
             $settings[] = $array_item;
         }
-        dump($settings);
-        die();
-
         $this->attributes['settings'] = json_encode($settings);
     }
 }
