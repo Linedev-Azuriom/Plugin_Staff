@@ -15,7 +15,7 @@ class SettingRequest extends FormRequest
      * @var array
      */
     protected $checkboxes = [
-        'settings.*.description', 'settings.*.effect',
+        'description', 'effect',
     ];
 
     /**
@@ -26,10 +26,10 @@ class SettingRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'string',
-            'settings' => 'array',
-//            'settings.description' => ['filled', 'boolean'],
-//            'settings.effect' => ['filled', 'boolean'],
+            'name'                   => 'string',
+            'settings.*'               => ['required', 'array'],
+            'description' => ['filled', 'boolean'],
+            'effect'      => ['filled', 'boolean'],
         ];
     }
 }

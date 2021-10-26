@@ -22,6 +22,6 @@ Route::middleware('can:staff.admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::resource('staff', AdminController::class)->except('index');
     Route::resource('tags', TagController::class);
-    Route::resource('settings', SettingController::class)->except('store', 'destroy', 'edit');
+    Route::resource('settings', SettingController::class)->only('update');
     Route::resource('links', LinkController::class)->only('destroy');
 });

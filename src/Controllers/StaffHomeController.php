@@ -3,6 +3,7 @@
 namespace Azuriom\Plugin\Staff\Controllers;
 
 use Azuriom\Http\Controllers\Controller;
+use Azuriom\Plugin\Staff\Models\Setting;
 use Azuriom\Plugin\Staff\Models\Staff;
 
 class StaffHomeController extends Controller
@@ -14,8 +15,9 @@ class StaffHomeController extends Controller
      */
     public function index()
     {
+        $settings = Setting::first();
         $staffs = Staff::all();
-        return view('staff::index', compact('staffs'));
+        return view('staff::index', compact('staffs', 'settings'));
 
     }
 }

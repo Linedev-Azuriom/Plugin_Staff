@@ -26,5 +26,15 @@ return [
         'created' => 'The link  has been created.',
         'updated' => 'This link has been updated.',
         'deleted' => 'This link has been deleted.',
+    ],
+    'setting'     => [
+        'title'      => 'Settings',
+        'created'    => 'The setting  has been created.',
+        'updated'    => 'This setting has been updated.',
+        'deleted'    => 'This setting has been deleted.',
+    'settings' =>[
+        'description' => 'Display the description directly in the staff window.',
+        'effect' => 'Display the black and white effect when hovering over the window.',
     ]
+]
 ];

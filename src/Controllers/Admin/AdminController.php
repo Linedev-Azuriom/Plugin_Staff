@@ -4,6 +4,7 @@ namespace Azuriom\Plugin\Staff\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Staff\Models\Link;
+use Azuriom\Plugin\Staff\Models\Setting;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Azuriom\Plugin\Staff\Requests\StaffRequest;
@@ -27,10 +28,12 @@ class AdminController extends Controller
      */
     public function index()
     {
+
+        $setting = Setting::first();
         $staffs = Staff::all();
         $tags = Tag::all();
         $pendingId = old('pending_id', Str::uuid());
-        return view('staff::admin.staff.index', compact('staffs', "tags", 'pendingId'));
+        return view('staff::admin.staff.index', compact('staffs', "tags", 'pendingId', 'setting'));
     }
 
     /**

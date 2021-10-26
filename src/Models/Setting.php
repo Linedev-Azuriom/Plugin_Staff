@@ -4,14 +4,15 @@ namespace Azuriom\Plugin\Staff\Models;
 
 
 use Azuriom\Models\Traits\HasTablePrefix;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Staff
  *
- * @property integer $id
- * @property string $name
- * @property array $settings
+ * @property integer        $id
+ * @property string         $name
+ * @property array          $settings
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  *
@@ -33,23 +34,21 @@ class Setting extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'settings', 'settings.*.effect', 'settings.*.description'];
+    protected $fillable = ['name', 'settings'];
 
     protected $casts = [
+        'name'     => 'string',
         'settings' => 'array',
-        'settings.*.effect' => 'boolean',
-        'settings.*.description' => 'boolean'
     ];
 
+    public function scopeSettings(Builder $query){
+        $settings = $query->where('id', 1)->first();
+       return json_decode($settings);
+    }
 
-    public function setSettingsAttribute($value)
+
+    public function setSettingsAttribute($array)
     {
-        $settings = [];
-        dump($value);
-        die();
-        foreach ($value as $array_item) {
-            $settings[] = $array_item;
-        }
-        $this->attributes['settings'] = json_encode($settings);
+        $this->attributes['settings'] = json_encode($array);
     }
 }

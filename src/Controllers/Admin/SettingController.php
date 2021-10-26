@@ -16,15 +16,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        if (Setting::first()) {
-            $setting = Setting::first();
-        } else {
-            $setting = Setting::create([
-                'name' => 'global',
-                'settings' => '{}'
-            ]);
-        };
-        return view('staff::admin.settings.index', compact('setting',));
+        //
     }
 
     /**
@@ -46,10 +38,7 @@ class SettingController extends Controller
      */
     public function store(SettingRequest $request)
     {
-        Setting::create($request->validated());
-
-        return redirect()->route('staff.admin.settings.index')
-            ->with('success', trans('staff::admin.setting.created'));
+        //
     }
 
     /**
@@ -66,17 +55,23 @@ class SettingController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Azuriom\Plugin\Staff\Requests\SettingRequest $request
-     * @param \Azuriom\Plugin\Staff\Models\Setting $setting
+     * @param \Azuriom\Plugin\Staff\Models\Setting          $setting
      *
      * @return \Illuminate\Http\Response
      */
     public function update(SettingRequest $request, Setting $setting)
     {
-//        dump($request->input('settings'));
-//        die();
-        Setting::first()->update($request->validated());
+        $setting->name = 'global';
 
-        return redirect()->route('staff.admin.settings.index')
+        $checkbox = [
+            'description' => $request->input('description'),
+            'effect' => $request->input('effect'),
+        ];
+
+        $setting->settings = $checkbox;
+        $setting->update($request->validated());
+
+        return redirect()->route('staff.admin.index')
             ->with('success', trans('staff::admin.setting.updated'));
     }
 
@@ -91,8 +86,6 @@ class SettingController extends Controller
      */
     public function destroy(Setting $setting)
     {
-        $setting->delete();
-        return redirect()->route('staff.admin.settings.index')
-            ->with('success', trans('staff::admin.setting.deleted'));
+        //
     }
 }

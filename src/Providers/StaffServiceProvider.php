@@ -4,6 +4,7 @@ namespace Azuriom\Plugin\Staff\Providers;
 
 use Azuriom\Extensions\Plugin\BasePluginServiceProvider;
 use Azuriom\Models\Permission;
+use Azuriom\Plugin\Staff\Models\Setting;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -46,6 +47,13 @@ class StaffServiceProvider extends BasePluginServiceProvider
             'tag' => Tag::class,
         ]);
 
+        if (!Setting::first()) {
+            Setting::create([
+                'name' => 'global',
+                'settings' => '{"effect": true, "description": false}'
+            ]);
+        }
+
         Permission::registerPermissions([
             'staff.admin' => 'staff::admin.permission',
         ]);
@@ -78,7 +86,6 @@ class StaffServiceProvider extends BasePluginServiceProvider
                 'route' => 'staff.admin.*', // Route de la page
                 'permission' => 'staff.staff', // (Optionnel) Permission nécessaire pour voir cet onglet
                 'items' => [
-                    'staff.admin.settings.index' => 'staff::admin.settings.index',
                     'staff.admin.index' => 'staff::admin.staff.index',
                     'staff.admin.tags.index' => 'staff::admin.tag.index'
                 ],
