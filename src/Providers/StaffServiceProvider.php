@@ -54,15 +54,10 @@ class StaffServiceProvider extends BasePluginServiceProvider
                     'description' => false,
                     'effect'      => true
                 );
-                dump($checkbox);
-                $settings = json_encode($checkbox);
-                dump($settings);
-                Setting::create([
-                    'name'     => 'global',
-                    'settings' => $settings
-                ]);
-                dump(Setting::first());
-                die();
+                $setting = new Setting();
+                $setting->name = 'global';
+                $setting->settings = $checkbox;
+                $setting->save();
             }
         }
 
