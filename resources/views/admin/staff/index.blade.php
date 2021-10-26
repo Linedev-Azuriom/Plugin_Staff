@@ -3,7 +3,48 @@
 @section('title', trans('staff::admin.title'))
 
 @push('footer-scripts')
+    <script src="{{ asset('vendor/sortablejs/Sortable.min.js') }}"></script>
     <script>
+        const sortable = Sortable.create(document.getElementById('staffs'), {
+            group: {
+                name: 'packages',
+                put: function (to, sortable, drag) {
+                    if (!drag.classList.contains('staff-parent')) {
+                        return true;
+                    }
+
+                    return !drag.querySelector('.staff-parent .staff-parent')
+                        && drag.parentNode.id === 'staffs';
+                },
+            },
+            animation: 150,
+            handle: '.sortable-handle',
+            onEnd: function (event) {
+                axios.post('{{ route('staff.admin.staff.update-order') }}', {
+                    'staffs': serialize(sortable.el)
+                })
+                    .then(function (response) {
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+        });
+
+        function serializeStaff(staff, preventNested = false) {
+
+            return {
+                id: staff.dataset['staffId'],
+            };
+        }
+
+        function serialize(staffs) {
+            return [].slice.call(staffs.children).map(function (staff) {
+                return serializeStaff(staff);
+            });
+        }
+
         document.getElementById('staffForm').addEventListener('submit', function () {
             let i = 0;
             document.getElementById('links').querySelectorAll('.form-row').forEach(function (el) {
@@ -83,10 +124,14 @@
                                 <th scope="col">{{ trans('messages.fields.action') }}</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="sortable" id="staffs">
                             @forelse($staffs ?? [] as $staff)
-                                <tr>
-                                    <th scope="row">{{$staff->id}}</th>
+                                <tr class="sortable-dropdown staff-parent" data-staff-id="{{ $staff->id }}">
+                                    <th scope="row">
+                                        <div class="col-1">
+                                            <i class="fas fa-arrows-alt sortable-handle"></i>
+                                        </div>
+                                    </th>
                                     <td>{{$staff->name}}</td>
                                     <td>
                                         <a href="{{ route('staff.admin.staff.edit', $staff) }}" class="mx-1"

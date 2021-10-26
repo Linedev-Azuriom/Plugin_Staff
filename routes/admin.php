@@ -20,8 +20,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('can:staff.admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+
     Route::resource('staff', AdminController::class)->except('index');
+    Route::post('staff/update-order', [AdminController::class, 'updateOrder'])->name('staff.update-order');
+
     Route::resource('tags', TagController::class);
+    Route::post('tags/update-order', [TagController::class, 'updateOrder'])->name('tags.update-order');
+
     Route::resource('settings', SettingController::class)->only('update');
+
     Route::resource('links', LinkController::class)->only('destroy');
 });

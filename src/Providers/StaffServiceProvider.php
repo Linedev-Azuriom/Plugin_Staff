@@ -8,6 +8,7 @@ use Azuriom\Plugin\Staff\Models\Setting;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Schema;
 
 class StaffServiceProvider extends BasePluginServiceProvider
 {
@@ -44,14 +45,25 @@ class StaffServiceProvider extends BasePluginServiceProvider
 
         Relation::morphMap([
             'staff' => Staff::class,
-            'tag' => Tag::class,
+            'tag'   => Tag::class,
         ]);
 
-        if (!Setting::first()) {
-            Setting::create([
-                'name' => 'global',
-                'settings' => '{"effect": true, "description": false}'
-            ]);
+        if (Schema::hasTable('staff_settings')) {
+            if (!Setting::first()) {
+                $checkbox = array(
+                    'description' => false,
+                    'effect'      => true
+                );
+                dump($checkbox);
+                $settings = json_encode($checkbox);
+                dump($settings);
+                Setting::create([
+                    'name'     => 'global',
+                    'settings' => $settings
+                ]);
+                dump(Setting::first());
+                die();
+            }
         }
 
         Permission::registerPermissions([
@@ -80,13 +92,13 @@ class StaffServiceProvider extends BasePluginServiceProvider
     {
         return [
             'staff' => [
-                'name' => 'staff::admin.title', // Traduction du nom de l'onglet
-                'type' => 'dropdown',
-                'icon' => 'fas fa-user-tie', // Icône FontAwesome
-                'route' => 'staff.admin.*', // Route de la page
+                'name'       => 'staff::admin.title', // Traduction du nom de l'onglet
+                'type'       => 'dropdown',
+                'icon'       => 'fas fa-user-tie', // Icône FontAwesome
+                'route'      => 'staff.admin.*', // Route de la page
                 'permission' => 'staff.staff', // (Optionnel) Permission nécessaire pour voir cet onglet
-                'items' => [
-                    'staff.admin.index' => 'staff::admin.staff.index',
+                'items'      => [
+                    'staff.admin.index'      => 'staff::admin.staff.index',
                     'staff.admin.tags.index' => 'staff::admin.tag.index'
                 ],
             ],

@@ -46,7 +46,7 @@ class Staff extends Model
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable', 'staff_taggables');
+        return $this->morphToMany(Tag::class, 'taggable', 'staff_taggables')->orderBy('position');
     }
 
 

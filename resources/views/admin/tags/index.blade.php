@@ -1,7 +1,50 @@
 @extends('admin.layouts.admin')
 
 @section('title', trans('staff::admin.tag.title'))
+@push('footer-scripts')
+    <script src="{{ asset('vendor/sortablejs/Sortable.min.js') }}"></script>
+    <script>
+        const sortable = Sortable.create(document.getElementById('tags'), {
+            group: {
+                name: 'packages',
+                put: function (to, sortable, drag) {
+                    if (!drag.classList.contains('tag-parent')) {
+                        return true;
+                    }
 
+                    return !drag.querySelector('.tag-parent .tag-parent')
+                        && drag.parentNode.id === 'tags';
+                },
+            },
+            animation: 150,
+            handle: '.sortable-handle',
+            onEnd: function (event) {
+                axios.post('{{ route('staff.admin.tags.update-order') }}', {
+                    'tags': serialize(sortable.el)
+                })
+                    .then(function (response) {
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+        });
+
+        function serializeTag(tag, preventNested = false) {
+
+            return {
+                id: tag.dataset['tagId'],
+            };
+        }
+
+        function serialize(tags) {
+            return [].slice.call(tags.children).map(function (tag) {
+                return serializeTag(tag);
+            });
+        }
+    </script>
+@endpush
 @section('content')
     <div class="row">
         <div class="col-md-6">
@@ -30,10 +73,14 @@
                                 <th scope="col">{{ trans('messages.fields.action') }}</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="sortable" id="tags">
                             @forelse($tags ?? [] as $tag)
-                                <tr>
-                                    <th scope="row">{{$tag->id}}</th>
+                                <tr class="sortable-dropdown tag-parent" data-tag-id="{{ $tag->id }}">
+                                    <th scope="row">
+                                        <div class="col-1">
+                                            <i class="fas fa-arrows-alt sortable-handle"></i>
+                                        </div>
+                                    </th>
                                     <td>
                                         <div class="badge" style="background-color: {{$tag->color}}; color: white">{{$tag->name}}</div>
                                     </td>

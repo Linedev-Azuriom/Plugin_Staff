@@ -16,7 +16,7 @@ class StaffHomeController extends Controller
     public function index()
     {
         $settings = Setting::first();
-        $staffs = Staff::all();
+        $staffs = Staff::orderBy('position')->get();
         return view('staff::index', compact('staffs', 'settings'));
 
     }

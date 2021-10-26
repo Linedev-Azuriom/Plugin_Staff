@@ -6,7 +6,7 @@ use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Azuriom\Plugin\Staff\Requests\TagRequest;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
@@ -17,8 +17,35 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tags = Tag::all();
+        $tags = Tag::orderBy('position')->get();
         return view('staff::admin.tags.index', compact('tags'));
+    }
+
+    /**
+     * Update the order of the resources.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function updateOrder(Request $request)
+    {
+        $this->validate($request, [
+            'tags' => ['required', 'array'],
+        ]);
+
+        $tags = $request->input('tags');
+
+        $tagPosition = 1;
+
+        foreach ($tags as $tag) {
+            $id = $tag['id'];
+            Tag::whereKey($id)->update([
+                'position' => $tagPosition++,
+            ]);
+        }
     }
 
     /**

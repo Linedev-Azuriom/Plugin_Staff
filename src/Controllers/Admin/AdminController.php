@@ -8,6 +8,7 @@ use Azuriom\Plugin\Staff\Models\Setting;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Azuriom\Plugin\Staff\Requests\StaffRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
@@ -30,11 +31,40 @@ class AdminController extends Controller
     {
 
         $setting = Setting::first();
-        $staffs = Staff::all();
-        $tags = Tag::all();
+        $staffs = Staff::orderBy('position')->get();
+        $tags = Tag::orderBy('position')->get();
         $pendingId = old('pending_id', Str::uuid());
         return view('staff::admin.staff.index', compact('staffs', "tags", 'pendingId', 'setting'));
     }
+
+
+    /**
+     * Update the order of the resources.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function updateOrder(Request $request)
+    {
+        $this->validate($request, [
+            'staffs' => ['required', 'array'],
+        ]);
+
+        $staffs = $request->input('staffs');
+
+        $staffPosition = 1;
+
+        foreach ($staffs as $staff) {
+            $id = $staff['id'];
+            Staff::whereKey($id)->update([
+                'position' => $staffPosition++,
+            ]);
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.
