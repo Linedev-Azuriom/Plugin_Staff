@@ -58,7 +58,7 @@
                                                     @if($staff->links->count() >= 1)
                                                         @foreach($staff->links as $link)
                                                             <li class="list-inline-item">
-                                                                <a href="{{$link->url}}" title="{{$link->name}}">
+                                                                <a href="{{$link->url}}" title="{{$link->name}}" target="_blank">
                                                                     {!! $link->icon !!}
                                                                 </a>
                                                             </li>
