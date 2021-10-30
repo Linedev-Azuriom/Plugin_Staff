@@ -55,10 +55,20 @@
         <div class="card-text mb-2">
             {{ trans('staff::admin.fontawesome') }}
             <a href="https://fontawesome.com/icons?d=gallery" title="fontawesome" target="_blank">fontawesome</a>
+            <div class="small color-error">{{ trans('staff::admin.link.is-create') }}</div>
+        </div>
+
+        <div class="mb-2">
+            <button type="button" id="addLinkButton" class="btn btn-sm btn-success">
+                <i class="fas fa-plus"></i> {{ trans('messages.actions.add') }}
+            </button>
         </div>
         <div id="links">
             @forelse($staff->links ?? [] as $key => $link)
-                <div class="form-row">
+                <div class="form-row sortable-dropdown link-parent" data-link-id="{{ $link->id }}">
+                    <div class="col-auto">
+                        <i class="fas fa-arrows-alt sortable-handle"></i>
+                    </div>
                     <div class="form-group col-md-4">
                         <input type="text" class="form-control" name="link[{{$key}}][icon]"
                                placeholder="{{ trans('theme::lang.icon') }}"
@@ -111,11 +121,6 @@
                     </div>
                 </div>
             @endforelse
-        </div>
-        <div class="mb-2">
-            <button type="button" id="addLinkButton" class="btn btn-sm btn-success">
-                <i class="fas fa-plus"></i> {{ trans('messages.actions.add') }}
-            </button>
         </div>
     </div>
 </div>

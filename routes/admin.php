@@ -30,4 +30,5 @@ Route::middleware('can:staff.admin')->group(function () {
     Route::resource('settings', SettingController::class)->only('update');
 
     Route::resource('links', LinkController::class)->only('destroy');
+    Route::post('links/update-order', [LinkController::class, 'updateOrder'])->name('links.update-order');
 });

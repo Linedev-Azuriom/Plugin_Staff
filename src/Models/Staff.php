@@ -55,7 +55,7 @@ class Staff extends Model
      */
     public function links()
     {
-        return $this->hasMany(Link::class);
+        return $this->hasMany(Link::class)->orderBy('position');
     }
 
     function isSelected($id)

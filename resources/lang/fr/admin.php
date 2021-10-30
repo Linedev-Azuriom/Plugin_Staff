@@ -26,6 +26,7 @@ return [
         'created' => 'Tag créé.',
         'updated' => 'Tag mis à jour.',
         'deleted' => 'Lien supprimé.',
+        'is-create' => 'Si un lien et crée vous ne pouvez pas modifier l\'ordre directement, il faudra sauvegader puis modififier'
     ],
     'setting'     => [
         'title'        => 'Paramètre',

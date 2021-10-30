@@ -3,7 +3,48 @@
 @section('title', trans('staff::admin.staff.title-edit') .': '.$staff->name)
 
 @push('footer-scripts')
+    <script src="{{ asset('vendor/sortablejs/Sortable.min.js') }}"></script>
     <script>
+        const sortable = Sortable.create(document.getElementById('links'), {
+            group: {
+                name: 'packages',
+                put: function (to, sortable, drag) {
+                    if (!drag.classList.contains('staff-parent')) {
+                        return true;
+                    }
+
+                    return !drag.querySelector('.link-parent .link-parent')
+                        && drag.parentNode.id === 'links';
+                },
+            },
+            animation: 150,
+            handle: '.sortable-handle',
+            onEnd: function (event) {
+                axios.post('{{ route('staff.admin.links.update-order') }}', {
+                    'links': serialize(sortable.el)
+                })
+                    .then(function (response) {
+                        console.log(serialize(sortable.el))
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error)
+                    })
+            },
+        });
+
+        function serializeLink(link, preventNested = false) {
+            return {
+                id: link.dataset['linkId'],
+            };
+        }
+
+        function serialize(links) {
+            return [].slice.call(links.children).map(function (link) {
+                return serializeLink(link);
+            });
+        }
+
         document.getElementById('staffForm').addEventListener('submit', function () {
             let i = 0;
             document.getElementById('links').querySelectorAll('.form-row').forEach(function (el) {
@@ -26,16 +67,20 @@
         });
 
         document.getElementById('addLinkButton').addEventListener('click', function () {
-            let input = '<div class="form-row"><div class="form-group col-md-4">';
+            let input = '<div class="col-auto"> <i class="fas fa-times-circle" style="padding: 0.5em;"></i> </div>';
+            input += '<div class="form-group col-md-4">';
             input += '<input type="text" class="form-control" name="link[{index}][icon]" placeholder="icon"></div>';
             input += '<div class="form-group col-md-3"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][name]" placeholder="name"></div></div>';
             input += '<div class="form-group col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="Link">';
             input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
-            input += '<i class="fas fa-times"></i></button></div></div></div></div></div>';
+            input += '<i class="fas fa-times"></i></button></div></div></div>';
 
             const newElement = document.createElement('div');
+            newElement.classList.add('form-row')
+            newElement.classList.add('sortable-dropdown')
+            newElement.classList.add('link-parent')
             newElement.innerHTML = input;
 
             addLinkListener(newElement.querySelector('.link-remove'));
