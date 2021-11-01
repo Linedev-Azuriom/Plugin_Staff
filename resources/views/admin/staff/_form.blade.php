@@ -65,24 +65,25 @@
         </div>
         <div id="links">
             @forelse($staff->links ?? [] as $key => $link)
+                <input type="hidden" name="link[{{$key}}][id]" value="{{ $link->id }}">
                 <div class="form-row sortable-dropdown link-parent" data-link-id="{{ $link->id }}">
                     <div class="col-auto">
                         <i class="fas fa-arrows-alt sortable-handle"></i>
                     </div>
                     <div class="form-group col-md-4">
                         <input type="text" class="form-control" name="link[{{$key}}][icon]"
-                               placeholder="{{ trans('theme::lang.icon') }}"
+                               placeholder="{{ trans('messages.fields.icon') }}"
                                value="{{old('link.'.$key.'.icon', $link->icon ?? '')}}">
                     </div>
                     <div class="form-group col-md-3">
                         <input type="text" class="form-control" name="link[{{$key}}][name]"
-                               placeholder="{{ trans('theme::lang.name') }}"
+                               placeholder="{{ trans('messages.fields.name') }}"
                                value="{{old('link'.$key.'name', $link->name ?? '')}}">
                     </div>
                     <div class="form-group col-md-4">
                         <div class="input-group">
                             <input type="text" class="form-control" name="link[{{$key}}][url]"
-                                   placeholder="{{ trans('theme::lang.link') }}"
+                                   placeholder="{{ trans('messages.fields.url') }}"
                                    value="{{ old('link'.$key.'url', $link->url ?? '')}}">
                             <div class="input-group-append">
                                 <a href="{{ route('staff.admin.links.destroy', old('link'.$key.'url', $link ?? '')) }}"
@@ -98,19 +99,19 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <input type="text" class="form-control" name="link[{index}][icon]"
-                               placeholder="{{ trans('theme::lang.icon') }}"
+                               placeholder="{{ trans('messages.fields.icon') }}"
                                value="{{old('link.*.icon', $staff->link->icon ?? '')}}">
 
                     </div>
                     <div class="form-group col-md-3">
                         <input type="text" class="form-control" name="link[{index}][name]"
-                               placeholder="{{ trans('theme::lang.name') }}"
+                               placeholder="{{ trans('messages.fields.name') }}"
                                value="{{old('link.*.name', $staff->link->name ?? '')}}">
                     </div>
                     <div class="form-group col-md-4">
                         <div class="input-group">
                             <input type="text" class="form-control" name="link[{index}][url]"
-                                   placeholder="{{ trans('theme::lang.link') }}"
+                                   placeholder="{{ trans('messages.fields.url') }}"
                                    value="{{ old('link.*.url', $staff->link->url ?? '')}}">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-danger link-remove" type="button">

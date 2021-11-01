@@ -4,7 +4,6 @@ namespace Azuriom\Plugin\Staff\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
 use Azuriom\Plugin\Staff\Models\Link;
-use Azuriom\Plugin\Staff\Models\Staff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -31,10 +30,12 @@ class LinkController extends Controller
         $linkPosition = 1;
 
         foreach ($links as $link) {
+            if (isset($link['id'])) {
             $id = $link['id'];
-            Link::whereKey($id)->update([
-                'position' => $linkPosition++,
-            ]);
+                Link::whereKey($id)->update([
+                    'position' => $linkPosition++,
+                ]);
+            }
         }
     }
 

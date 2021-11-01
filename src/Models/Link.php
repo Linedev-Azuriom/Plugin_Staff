@@ -32,7 +32,7 @@ class Link extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'url', 'icon','staff_id'];
+    protected $fillable = ['name', 'url', 'icon','staff_id', 'position'];
 
     /**
      * Get all of the staff that are assigned this links.

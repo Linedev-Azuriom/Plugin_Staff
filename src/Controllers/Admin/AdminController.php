@@ -143,12 +143,25 @@ class AdminController extends Controller
 
         foreach ($request->input('link') as $link) {
             if (!empty($link['name']) && !empty($link['url']) && !empty($link['icon'])) {
-                Link::updateOrCreate([
-                    'name'     => $link['name'],
-                    'url'      => $link['url'],
-                    'icon'     => $link['icon'],
-                    'staff_id' => $staff->id
-                ]);
+                if (isset($link['id'])) {
+                    if (Link::where('staff_id', $staff->id)){
+
+                    Link::find($link['id'])->update([
+                        'name' => $link['name'],
+                        'url'  => $link['url'],
+                        'icon' => $link['icon']
+                    ]);
+                    }
+                } else {
+                    $countLink = Link::where('staff_id', $staff->id)->count();
+                    Link::create([
+                        'name'     => $link['name'],
+                        'url'      => $link['url'],
+                        'icon'     => $link['icon'],
+                        'staff_id' => $staff->id,
+                        'position' => $countLink + 1
+                    ]);
+                }
             }
         }
 
