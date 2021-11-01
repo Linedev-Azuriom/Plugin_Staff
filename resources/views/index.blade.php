@@ -23,7 +23,7 @@
                                 <div class="card shadow-sm h-100">
                                     @if(!empty($staff->description && !$settings->settings()->settings->description))
                                         <div class="description">
-                                            <p>{{$staff->description}}</p>
+                                            <p>{!! $staff->description !!}</p>
                                         </div>
                                     @endif
                                     <div class="text-center">
@@ -32,7 +32,6 @@
                                             <img class="shadow"
                                                  src="{{isset($staff->image) && $staff->image != null ? image_url('../staff/'.$staff->image) :  (game()->name() === 'Minecraft' ? 'https://crafthead.net/helm/'.$staff->name.'/100.png' : '') }}"
                                                  alt="{{$staff->name}}">
-
                                         </div>
                                     </div>
                                     <div class="card-body">
@@ -41,7 +40,9 @@
                                             <h1>{{$staff->name}}</h1>
                                         </div>
                                         @if($settings->settings()->settings->description)
-                                        <p class="mt-3">{{$staff->description}}</p>
+                                        <div class="mt-3">
+                                            {!! $staff->description !!}
+                                        </div>
                                         @endif
                                         <div class="mb-1 d-flex flex-wrap justify-content-center">
                                             @if($staff->tags->count() >= 1)

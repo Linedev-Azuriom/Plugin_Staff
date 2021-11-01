@@ -1,5 +1,8 @@
 @csrf
 <div class="card-body">
+    @if(isset($staffs))
+        <input type="hidden" name="position" value="{{$staffs->count() + 1}}">
+    @endif
     <div class="form-group">
         <label for="nameInput">{{ trans('messages.fields.name') }}</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="nameInput"
@@ -12,9 +15,9 @@
     </div>
     <div class="form-group">
         <label for="descriptionInput">{{ trans('messages.fields.description') }}</label>
-        <input type="text" class="form-control @error('description') is-invalid @enderror" id="descriptionInput"
-               name="description"
-               value="{{ old('description', $staff->description ?? '') }}">
+
+        <textarea class="form-control html-editor @error('description') is-invalid @enderror" id="descriptionInput"
+                  name="description" rows="1">{{ old('description', $staff->description ?? '') }}</textarea>
 
         @error('description')
         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
