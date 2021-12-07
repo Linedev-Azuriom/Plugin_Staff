@@ -3,8 +3,8 @@
 @section('title', 'Staff')
 
 @push('scripts')
-    <script defer src="{{ plugin_asset('staff', 'js/glide.min.js') }} "></script>
-    <script defer src="{{ plugin_asset('staff', 'js/script.js') }} "></script>
+    <script defer data-cfasync="false" src="{{ plugin_asset('staff', 'js/glide.min.js') }} "></script>
+    <script defer data-cfasync="false" src="{{ plugin_asset('staff', 'js/script.js') }} "></script>
 @endpush
 @push('styles')
     <link href="{{ plugin_asset('staff', 'css/glide.core.min.css') }} " rel="stylesheet">
