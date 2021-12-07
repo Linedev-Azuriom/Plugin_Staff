@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+const TerserPlugin = require("terser-webpack-plugin");
+require('laravel-mix-clean');
 
 /*
  |--------------------------------------------------------------------------
@@ -10,6 +12,10 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+mix.override((config) => {
+    delete config.watchOptions;
+});
+
 const assets = './../assets'
 const imagePath = assets + '/image'
 const jsPath = assets + '/js'
@@ -29,6 +35,18 @@ mix.js('js/script.js', jsPath)
             }
         }
     }).sourceMaps()
+    .sourceMaps()
+    .webpackConfig({
+        watchOptions: {ignored: /node_modules/},
+        optimization: {
+            minimizer: [new TerserPlugin()],
+        },
+    }).clean()
+
+mix.options({
+    processCssUrls: false,
+    children: false,
+});
 
 mix.setPublicPath(assets + '/')
     .copyDirectory('image', `${imagePath}`)
