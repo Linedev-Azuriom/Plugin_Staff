@@ -74,7 +74,7 @@ class StaffServiceProvider extends BasePluginServiceProvider
     protected function routeDescriptions()
     {
         return [
-            'staff.index' => 'staff::messages.title',
+            'staff.index' => trans('staff::messages.title'),
         ];
     }
 
@@ -87,14 +87,14 @@ class StaffServiceProvider extends BasePluginServiceProvider
     {
         return [
             'staff' => [
-                'name'       => 'staff::admin.title', // Traduction du nom de l'onglet
+                'name'       => trans('staff::admin.title'), // Traduction du nom de l'onglet
                 'type'       => 'dropdown',
                 'icon'       => 'fas fa-user-tie', // Icône FontAwesome
                 'route'      => 'staff.admin.*', // Route de la page
                 'permission' => 'staff.staff', // (Optionnel) Permission nécessaire pour voir cet onglet
                 'items'      => [
-                    'staff.admin.index'      => 'staff::admin.staff.index',
-                    'staff.admin.tags.index' => 'staff::admin.tag.index'
+                    'staff.admin.index'      => trans('staff::admin.staff.index'),
+                    'staff.admin.tags.index' => trans('staff::admin.tag.index')
                 ],
             ],
         ];
