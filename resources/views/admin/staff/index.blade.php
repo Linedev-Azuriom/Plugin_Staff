@@ -68,11 +68,11 @@
         });
 
         document.getElementById('addLinkButton').addEventListener('click', function () {
-            let input = '<div class="form-row"><div class="form-group col-md-4">';
+            let input = '<div class="row g-0"><div class="col-md-4">';
             input += '<input type="text" class="form-control" name="link[{index}][icon]" placeholder="{{ trans('messages.fields.icon') }}"></div>';
-            input += '<div class="form-group col-md-3"><div class="input-group">';
+            input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][name]" placeholder="{{ trans('messages.fields.name') }}"></div></div>';
-            input += '<div class="form-group col-md-4"><div class="input-group">';
+            input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="{{ trans('messages.fields.url') }}">';
             input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
             input += '<i class="fas fa-times"></i></button></div></div></div></div></div>';
