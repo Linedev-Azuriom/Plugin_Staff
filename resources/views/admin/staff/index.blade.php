@@ -75,7 +75,7 @@
             input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="{{ trans('messages.fields.url') }}">';
             input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
-            input += '<i class="fas fa-times"></i></button></div></div></div></div></div>';
+            input += '<i class="bi bi-x-lg"></i></button></div></div></div></div></div>';
 
             const newElement = document.createElement('div');
             newElement.innerHTML = input;
@@ -105,7 +105,7 @@
                         @include('staff::admin.staff._form')
 
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
+                            <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
                         </button>
                     </form>
                 </div>
@@ -129,17 +129,17 @@
                                 <tr class="sortable-dropdown staff-parent" data-staff-id="{{ $staff->id }}">
                                     <th scope="row">
                                         <div class="col-1">
-                                            <i class="fas fa-arrows-alt sortable-handle"></i>
+                                            <i class="bi bi-arrows-move sortable-handle"></i>
                                         </div>
                                     </th>
                                     <td>{{$staff->name}}</td>
                                     <td>
                                         <a href="{{ route('staff.admin.staff.edit', $staff) }}" class="mx-1"
                                            title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i
-                                                class="fas fa-edit"></i></a>
+                                                class="bi bi-pen-fill"></i></a>
                                         <a href="{{ route('staff.admin.staff.destroy', $staff) }}" class="mx-1"
                                            title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip"
-                                           data-confirm="delete"><i class="fas fa-trash"></i></a>
+                                           data-confirm="delete"><i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
                             @empty

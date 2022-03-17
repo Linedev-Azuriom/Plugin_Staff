@@ -61,7 +61,7 @@
         });
 
         document.getElementById('addLinkButton').addEventListener('click', function () {
-            let input = '<div class="col-auto"> <i class="fas fa-times-circle" style="padding: 0.5em;"></i> </div>';
+            let input = '<div class="col-auto"> <i class="bi bi-x-lg" style="padding: 0.5em;"></i> </div>';
             input += '<div class="col-md-4">';
             input += '<input type="text" class="form-control" name="link[{index}][icon]" placeholder="{{ trans('messages.fields.icon') }}"></div>';
             input += '<div class="col-md-3"><div class="input-group">';
@@ -69,7 +69,7 @@
             input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="{{ trans('messages.fields.url') }}">';
             input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
-            input += '<i class="fas fa-times"></i></button></div></div></div>';
+            input += '<i class="bi bi-x-lg"></i></button></div></div></div>';
 
             const newElement = document.createElement('div');
             newElement.classList.add('form-row')
@@ -104,15 +104,15 @@
 
 
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
+                    <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
                 </button>
 
                 <a href="{{ route('staff.admin.staff.destroy', $staff) }}" class="btn btn-danger  float-right" data-confirm="delete">
-                    <i class="fas fa-trash"></i> {{ trans('messages.actions.delete') }}
+                    <i class="bi bi-trash-fill"></i> {{ trans('messages.actions.delete') }}
                 </a>
 
                 <a href="{{ route('staff.admin.index') }}" class="btn btn-success float-right mr-3">
-                    <i class="fas fa-arrow-left"></i> {{ trans('messages.actions.back') }}
+                    <i class="bi bi-arrow-left"></i> {{ trans('messages.actions.back') }}
                 </a>
             </form>
         </div>

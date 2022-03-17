@@ -54,7 +54,7 @@
                         <h3>{{ trans('staff::admin.tag.title') }}</h3>
                         @include('staff::admin.tags._form')
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
+                            <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
                         </button>
                     </form>
                 </div>
@@ -78,7 +78,7 @@
                                 <tr class="sortable-dropdown tag-parent" data-tag-id="{{ $tag->id }}">
                                     <th scope="row">
                                         <div class="col-1">
-                                            <i class="fas fa-arrows-alt sortable-handle"></i>
+                                            <i class="bi bi-arrows-move sortable-handle"></i>
                                         </div>
                                     </th>
                                     <td>
@@ -87,10 +87,10 @@
                                     <td>
                                         <a href="{{ route('staff.admin.tags.edit', $tag) }}" class="mx-1"
                                            title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i
-                                                class="fas fa-edit"></i></a>
+                                                class="bi bi-pen-fill"></i></a>
                                         <a href="{{ route('staff.admin.tags.destroy', $tag) }}" class="mx-1"
                                            title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip"
-                                           data-confirm="delete"><i class="fas fa-trash"></i></a>
+                                           data-confirm="delete"><i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
                             @empty

@@ -89,7 +89,7 @@ class StaffServiceProvider extends BasePluginServiceProvider
             'staff' => [
                 'name'       => trans('staff::admin.title'), // Traduction du nom de l'onglet
                 'type'       => 'dropdown',
-                'icon'       => 'fas fa-user-tie', // Icône FontAwesome
+                'icon'       => 'bi bi-person-lines-fill', // Icône FontAwesome
                 'route'      => 'staff.admin.*', // Route de la page
                 'permission' => 'staff.staff', // (Optionnel) Permission nécessaire pour voir cet onglet
                 'items'      => [

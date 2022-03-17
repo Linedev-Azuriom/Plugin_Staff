@@ -63,7 +63,7 @@
 
         <div class="my-2">
             <button type="button" id="addLinkButton" class="btn btn-sm btn-success">
-                <i class="fas fa-plus"></i> {{ trans('messages.actions.add') }}
+                <i class="bi bi-plus-lg"></i> {{ trans('messages.actions.add') }}
             </button>
         </div>
         <div id="links">
@@ -71,7 +71,7 @@
                 <input type="hidden" name="link[{{$key}}][id]" value="{{ $link->id }}">
                 <div class="row g-0 sortable-dropdown link-parent" data-link-id="{{ $link->id }}">
                     <div class="col-auto">
-                        <i class="fas fa-arrows-alt sortable-handle"></i>
+                        <i class="bi bi-arrows-move sortable-handle"></i>
                     </div>
                     <div class="col-md-4">
                         <input type="text" class="form-control" name="link[{{$key}}][icon]"
@@ -92,7 +92,7 @@
                                 <a href="{{ route('staff.admin.links.destroy', old('link'.$key.'url', $link ?? '')) }}"
                                    class="btn btn-outline-danger " title="{{ trans('messages.actions.delete') }}"
                                    data-toggle="tooltip" data-confirm="delete">
-                                    <i class="fas fa-trash"></i>
+                                    <i class="bi bi-trash-fill"></i>
                                 </a>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                                    value="{{ old('link.*.url', $staff->link->url ?? '')}}">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-danger link-remove" type="button">
-                                    <i class="fas fa-times"></i>
+                                    <i class="bi bi-x-lg"></i>
                                 </button>
                             </div>
                         </div>
