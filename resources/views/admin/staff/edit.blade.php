@@ -47,7 +47,7 @@
 
         document.getElementById('staffForm').addEventListener('submit', function () {
             let i = 0;
-            document.getElementById('links').querySelectorAll('.form-row').forEach(function (el) {
+            document.getElementById('links').querySelectorAll('.link-parent').forEach(function (el) {
                 el.querySelectorAll('input').forEach(function (input) {
                     input.name = input.name.replace('{index}', i.toString());
                 });
@@ -61,7 +61,7 @@
         });
 
         document.getElementById('addLinkButton').addEventListener('click', function () {
-            let input = '<div class="col-auto"> <i class="bi bi-x-lg" style="padding: 0.5em;"></i> </div>';
+            let input = '<div class="row g-0"><div class="col-auto"> <i class="bi bi-arrows-move sortable-handle"></i> </div>';
             input += '<div class="col-md-4">';
             input += '<input type="text" class="form-control" name="link[{index}][icon]" placeholder="{{ trans('messages.fields.icon') }}"></div>';
             input += '<div class="col-md-3"><div class="input-group">';
@@ -69,10 +69,10 @@
             input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="{{ trans('messages.fields.url') }}">';
             input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
-            input += '<i class="bi bi-x-lg"></i></button></div></div></div>';
+            input += '<i class="bi bi-trash-fill"></i></button></div></div></div></div>';
 
             const newElement = document.createElement('div');
-            newElement.classList.add('form-row')
+            newElement.classList.add('link-parent')
             newElement.classList.add('sortable-dropdown')
             newElement.classList.add('link-parent')
             newElement.innerHTML = input;

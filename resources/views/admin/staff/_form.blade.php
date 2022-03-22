@@ -3,7 +3,7 @@
     @if(isset($staffs))
         <input type="hidden" name="position" value="{{$staffs->count() + 1}}">
     @endif
-    <div class="form-group">
+    <div class="mb-3">
         <label class="form-label" for="nameInput">{{ trans('messages.fields.name') }}</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="nameInput"
                name="name"
@@ -13,7 +13,7 @@
         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
         @enderror
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         <label class="form-label" for="descriptionInput">{{ trans('messages.fields.description') }}</label>
 
         <textarea class="form-control html-editor @error('description') is-invalid @enderror" id="descriptionInput"
@@ -23,7 +23,7 @@
         <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
         @enderror
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         <label class="form-label" for="imageInput">{{ trans('messages.fields.image') }}</label>
         @if(game()->name() === 'Minecraft')
             <div class="small">{{ trans('staff::admin.staff.default-skin') }}</div>
@@ -43,7 +43,7 @@
              class="mt-2 img-fluid rounded img-preview {{ ($staff->image ?? false) ? '' : 'd-none' }}" alt="Image"
              id="imagePreview">
     </div>
-    <div class="form-group">
+    <div class="mb-3">
         <label class="form-label" for="">Tags</label>
         <select name="tags[]" class="form-control" multiple="multiple">
             @foreach($tags as $tag)
@@ -54,10 +54,9 @@
         </select>
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
         <div class="card-text my-2">
-            {{ trans('staff::admin.fontawesome') }}
-            <a href="https://fontawesome.com/icons?d=gallery" title="fontawesome" target="_blank">fontawesome</a>
+            @lang('messages.icons')
             <div class="small color-error">{{ trans('staff::admin.link.is-create') }}</div>
         </div>
 

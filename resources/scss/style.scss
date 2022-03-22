@@ -8,7 +8,6 @@
     }
 
     .card {
-        box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
         border: 1px;
         border-radius: 1rem;
         min-width: 250px;
@@ -21,10 +20,8 @@
         }
 
         .description {
-            background-color: white;
             border-top-left-radius: 1rem;
             border-top-right-radius: 1rem;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
             position: absolute;
             top: 0;
             transform: translateY(-100%);
@@ -35,11 +32,6 @@
             transition: transform .3s ease-in;
             height: 230px;
             overflow-y: auto;
-
-            ul, li,
-            p {
-                color: black;
-            }
         }
 
         h5 {
@@ -117,11 +109,6 @@
 
         .glide__arrows {
             width: 100%;
-
-            .glide__arrow {
-                color: black;
-                background-color: #fff;
-            }
         }
 
 

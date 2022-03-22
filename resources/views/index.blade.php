@@ -13,16 +13,16 @@
 @endpush
 
 @section('content')
-    <div class="container content mt-5" id="staff">
+    <div class="row g-0 mt-5" id="staff">
         @if($staffs->count() >= 1)
-            <div class="glide_staff">
+            <div class="glide_staff" @include('elements.string-aos', ['pageAos' => 'staff', 'itemAos'=>'staff'])>
                 <div class="glide__track" data-glide-el="track">
                     <ul class="glide__slides">
                         @foreach($staffs as $staff)
                             <li class="glide__slide">
-                                <div class="card shadow-sm h-100">
+                                <div class="card shadow-lg h-100">
                                     @if(!empty($staff->description && !$settings->settings()->settings->description))
-                                        <div class="description">
+                                        <div class="description card-body shadow-lg">
                                             <p>{!! $staff->description !!}</p>
                                         </div>
                                     @endif
@@ -37,12 +37,12 @@
                                     <div class="card-body">
                                         <div class="clearfix mb-3"></div>
                                         <div class="my-2 text-center">
-                                            <h1>{{$staff->name}}</h1>
+                                            <h2>{{$staff->name}}</h2>
                                         </div>
                                         @if($settings->settings()->settings->description)
-                                        <div class="mt-3">
-                                            {!! $staff->description !!}
-                                        </div>
+                                            <div class="mt-3">
+                                                {!! $staff->description !!}
+                                            </div>
                                         @endif
                                         <div class="mb-1 d-flex flex-wrap justify-content-center">
                                             @if($staff->tags->count() >= 1)
@@ -59,7 +59,8 @@
                                                     @if($staff->links->count() >= 1)
                                                         @foreach($staff->links as $link)
                                                             <li class="list-inline-item">
-                                                                <a href="{{$link->url}}" title="{{$link->name}}" target="_blank">
+                                                                <a href="{{$link->url}}" title="{{$link->name}}"
+                                                                   target="_blank">
                                                                     {!! $link->icon !!}
                                                                 </a>
                                                             </li>
