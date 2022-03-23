@@ -15,7 +15,7 @@
 @section('content')
     <div class="row g-0 mt-5" id="staff">
         @if($staffs->count() >= 1)
-            <div class="glide_staff" @include('elements.string-aos', ['pageAos' => 'staff', 'itemAos'=>'staff'])>
+            <div class="glide_staff">
                 <div class="glide__track" data-glide-el="track">
                     <ul class="glide__slides">
                         @foreach($staffs as $staff)
