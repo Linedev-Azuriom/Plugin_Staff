@@ -63,12 +63,15 @@ class SettingController extends Controller
     {
         $setting->name = 'global';
 
-        $checkbox = [
+        $input = [
             'description' => $request->input('description'),
             'effect' => $request->input('effect'),
+            'style' => $request->input('style'),
+            'column' => $request->input('column'),
+            'alignment' => $request->input('alignment')
         ];
 
-        $setting->settings = $checkbox;
+        $setting->settings = $input;
         $setting->update($request->validated());
 
         return redirect()->route('staff.admin.index')

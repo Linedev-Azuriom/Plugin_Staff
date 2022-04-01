@@ -2,91 +2,59 @@
 
 @section('title', 'Staff')
 
-@push('scripts')
-    <script defer data-cfasync="false" src="{{ plugin_asset('staff', 'js/glide.min.js') }} "></script>
-    <script defer data-cfasync="false" src="{{ plugin_asset('staff', 'js/script.js') }} "></script>
-@endpush
+@if($settings->settings()->settings->style == 1)
+    @push('scripts')
+        <script defer data-cfasync="false" src="{{ plugin_asset('staff', 'js/glide.min.js') }} "></script>
+        <script defer data-cfasync="false" src="{{ plugin_asset('staff', 'js/script.js') }} "></script>
+    @endpush
+@endif
 @push('styles')
-    <link href="{{ plugin_asset('staff', 'css/glide.core.min.css') }} " rel="stylesheet">
-    <link href="{{ plugin_asset('staff', 'css/glide.theme.min.css') }} " rel="stylesheet">
+    @if($settings->settings()->settings->style == 1)
+        <link href="{{ plugin_asset('staff', 'css/glide.core.min.css') }} " rel="stylesheet">
+        <link href="{{ plugin_asset('staff', 'css/glide.theme.min.css') }} " rel="stylesheet">
+    @endif
     <link href="{{ plugin_asset('staff', 'css/style.css') }} " rel="stylesheet">
 @endpush
 
 @section('content')
     <div class="row g-0 mt-5" id="staff">
         @if($staffs->count() >= 1)
-            <div class="glide_staff">
-                <div class="glide__track" data-glide-el="track">
-                    <ul class="glide__slides">
-                        @foreach($staffs as $staff)
-                            <li class="glide__slide">
-                                <div class="card shadow-lg h-100">
-                                    @if(!empty($staff->description && !$settings->settings()->settings->description))
-                                        <div class="description card-body shadow-lg">
-                                            <p>{!! $staff->description !!}</p>
-                                        </div>
-                                    @endif
-                                    <div class="text-center">
-                                        <div
-                                            class="img-hover-zoom img-hover-zoom--colorize {{ $settings->settings()->settings->effect ?'hover': '' }}">
-                                            <img class="shadow"
-                                                 src="{{isset($staff->image) && $staff->image != null ? image_url('../staff/'.$staff->image) :  (game()->name() === 'Minecraft' ? 'https://mc-heads.net/avatar/'.$staff->name.'/100' : '') }}"
-                                                 alt="{{$staff->name}}">
-                                        </div>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="clearfix mb-3"></div>
-                                        <div class="my-2 text-center">
-                                            <h2>{{$staff->name}}</h2>
-                                        </div>
-                                        @if($settings->settings()->settings->description)
-                                            <div class="mt-3">
-                                                {!! $staff->description !!}
-                                            </div>
-                                        @endif
-                                        <div class="mb-1 d-flex flex-wrap justify-content-center">
-                                            @if($staff->tags->count() >= 1)
-                                                @foreach($staff->tags as $tag)
-                                                    <span class="m-1">
-                        <span class="badge" style="background-color: {{$tag->color}}">{{$tag->name}}</span>
-                        </span>
-                                                @endforeach
-                                            @endif
-                                        </div>
-                                        <div class="box">
-                                            <div>
-                                                <ul class="list-inline">
-                                                    @if($staff->links->count() >= 1)
-                                                        @foreach($staff->links as $link)
-                                                            <li class="list-inline-item">
-                                                                <a href="{{$link->url}}" title="{{$link->name}}"
-                                                                   target="_blank">
-                                                                    {!! $link->icon !!}
-                                                                </a>
-                                                            </li>
-                                                        @endforeach
-                                                    @endif
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
-                    <div class="glide__bullets" data-glide-el="controls[nav]">
-                        @foreach($staffs as $staff)
-                            <button class="glide__bullet" data-glide-dir="={{$loop->index}}"></button>
-                        @endforeach
-                    </div>
-                    <div class="glide__arrows" data-glide-el="controls">
-                        <button class="glide__arrow glide__arrow--left" data-glide-dir="<"><i
-                                class="bi bi-chevron-left"></i></button>
-                        <button class="glide__arrow glide__arrow--right" data-glide-dir=">"><i
-                                class="bi bi-chevron-right"></i></button>
-                    </div>
-                </div>
-            </div>
+            @php
+                $alignment = '';
+                switch ($settings->settings()->settings->alignment ?? 'start'){
+                    case 'start':
+                        $alignment = 'start';
+                        break;
+                    case 'center':
+                        $alignment = 'center';
+                        break;
+                    case 'end':
+                        $alignment = 'end';
+                        break;
+                    default:
+                    $alignment = 'start';
+                }
+                    $column = isset($settings->settings()->settings->column) ? intdiv(12,intval($settings->settings()->settings->column)) : intdiv(12,1)
+            @endphp
+
+            @switch($settings->settings()->settings->style ?? '1')
+                @case('1')
+                @include('staff::styles._slider')
+                @break
+                @case('2')
+                @include('staff::styles._list')
+                @break
+                @case('3')
+                @include('staff::styles._rounded')
+                @break
+                @case('4')
+                @include('staff::styles._tags-list')
+                @break
+                @case('5')
+                @include('staff::styles._tags-rounded')
+                @break
+            @endswitch
+
         @else
             <div class="alert alert-warning" role="alert">
                 {{ trans('staff::messages.staff-empty') }}

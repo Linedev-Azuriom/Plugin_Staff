@@ -2,14 +2,8 @@
 @import "variables";
 
 #staff {
-    .h1,
-    h1 {
-        font-size: 1.5rem;
-    }
 
     .card {
-        border: 1px;
-        border-radius: 1rem;
         min-width: 250px;
 
         &:active {
@@ -20,44 +14,17 @@
         }
 
         .description {
-            border-top-left-radius: 1rem;
-            border-top-right-radius: 1rem;
-            position: absolute;
-            top: 0;
-            transform: translateY(-100%);
-            left: 0;
-            width: 101%;
-            padding: 15px;
-            z-index: 10;
+            transform: translateY(-105%);
+            width: 100%;
             transition: transform .3s ease-in;
             height: 230px;
             overflow-y: auto;
-        }
-
-        h5 {
-            overflow: hidden;
-            height: 80px;
-            font-weight: 300;
-            font-size: 1rem;
-
-            a {
-                text-decoration: none;
-            }
-        }
-
-        h2 {
-            font-size: 1rem;
+            z-index: 2;
         }
     }
 
     .img-hover-zoom--colorize {
         img {
-            object-fit: cover;
-            border-radius: 50%;
-            width: 150px;
-            height: 150px;
-            margin-top: 20px;
-            padding: 1px;
             transition: transform .5s;
         }
 
@@ -68,11 +35,9 @@
         }
 
         &.hover {
-
             img {
                 filter: grayscale(100%);
             }
-
             &:hover {
                 img {
                     filter: grayscale(0);
@@ -81,52 +46,12 @@
         }
     }
 
-    .box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .fab {
+    .bi {
         font-size: 1.5rem;
         transition: transform .5s;
 
         &:hover {
             transform: scale(1.1);
-        }
-    }
-
-    .glide_staff {
-        position: relative;
-
-        .glide__slides {
-            align-items: stretch;
-
-            .glide__slide {
-                height: auto;
-            }
-        }
-
-        .glide__arrows {
-            width: 100%;
-        }
-
-
-        .glide__bullets {
-            bottom: 0;
-        }
-    }
-
-    @media only screen and (min-width: 1200px) {
-        .img-hover-zoom--colorize {
-            img {
-                width: 200px;
-                height: 200px;
-            }
-        }
-        .h1,
-        h1 {
-            font-size: 2rem;
         }
     }
 }
