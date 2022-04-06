@@ -24,17 +24,17 @@
                     <label for="exampleFormControlInput1" class="form-label">Style</label>
                     <small class="d-block">{{ trans('staff::admin.setting.settings.style') }}</small>
                     <select class="form-select form-select-lg mb-3" name="style" aria-label="Style">
-                        <option value="1" @if($setting->settings()->settings->style == '1') selected @endif>Slider
+                        <option value="1" @if(isset($setting->settings()->settings->style) && $setting->settings()->settings->style == '1') selected @endif>Slider
                         </option>
-                        <option value="2" @if($setting->settings()->settings->style == '2') selected @endif>List
+                        <option value="2" @if(isset($setting->settings()->settings->style) && $setting->settings()->settings->style == '2') selected @endif>List
                         </option>
-                        <option value="3" @if($setting->settings()->settings->style == '3') selected @endif>
+                        <option value="3" @if(isset($setting->settings()->settings->style) && $setting->settings()->settings->style == '3') selected @endif>
                             Rounded
                         </option>
-                        <option value="4" @if($setting->settings()->settings->style == '4') selected @endif>
+                        <option value="4" @if(isset($setting->settings()->settings->style) && $setting->settings()->settings->style == '4') selected @endif>
                             Tags - List
                         </option>
-                        <option value="5" @if($setting->settings()->settings->style == '5') selected @endif>
+                        <option value="5" @if(isset($setting->settings()->settings->style) && $setting->settings()->settings->style == '5') selected @endif>
                             Tags - Rounded
                         </option>
                     </select>
@@ -54,14 +54,14 @@
                     <label for="exampleFormControlInput1" class="form-label">Alignement</label>
                     <small class="d-block">{{ trans('staff::admin.setting.settings.alignment') }}</small>
                     <select class="form-select form-select-lg mb-3" name="alignment" aria-label="Alignement">
-                        <option value="start" @if($setting->settings()->settings->alignment == 'start') selected @endif>
+                        <option value="start" @if(isset($setting->settings()->settings->alignment) && $setting->settings()->settings->alignment == 'start') selected @endif>
                             {{ trans('staff::admin.start') }}
                         </option>
                         <option value="center"
-                                @if($setting->settings()->settings->alignment == 'center') selected @endif>
+                                @if(isset($setting->settings()->settings->alignment) && $setting->settings()->settings->alignment == 'center') selected @endif>
                             {{ trans('staff::admin.center') }}
                         </option>
-                        <option value="end" @if($setting->settings()->settings->alignment == 'end') selected @endif>
+                        <option value="end" @if(isset($setting->settings()->settings->alignment) && $setting->settings()->settings->alignment == 'end') selected @endif>
                             {{ trans('staff::admin.end') }}
                         </option>
                     </select>
