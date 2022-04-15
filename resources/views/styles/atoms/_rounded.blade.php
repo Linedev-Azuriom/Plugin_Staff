@@ -1,6 +1,11 @@
 <div class="col-md-{{$column}} list-inline">
     <div
         class="card flex-md-nowrap bg-transparent flex-row position-relative border-0 rounded-3 overflow-hidden h-100">
+        @if(!empty($staff->description && !$settings->settings()->settings->description))
+            <div class="description bg-white position-absolute top-0 left-0 p-3 rounded-2">
+                <p>{!! $staff->description !!}</p>
+            </div>
+        @endif
         <div class="w-25 d-flex align-items-center justify-content-center me-3 position-relative ">
             <div
                 class="w-100 img-hover-zoom img-hover-zoom--colorize {{ $settings->settings()->settings->effect ?'hover': '' }}">
@@ -11,12 +16,7 @@
         </div>
         <div class="w-75">
             <div class="card-body bg-transparent">
-                @if(!empty($staff->description && !$settings->settings()->settings->description))
-                    <div class="description bg-white position-absolute top-0 left-0 p-3 rounded-2">
-                        <p>{!! $staff->description !!}</p>
-                    </div>
-                @endif
-                <h2 class="text-{{$alignment}}">{{$staff->name}}</h2>
+                <{{$title}} class="text-{{$alignment}}">{{$staff->name}}</{{$title}}>
                 @if($settings->settings()->settings->description)
                     <p>{!! $staff->description !!}</p>
                 @endif

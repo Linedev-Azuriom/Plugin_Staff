@@ -39,19 +39,19 @@
 
             @switch($settings->settings()->settings->style ?? '1')
                 @case('1')
-                @include('staff::styles._slider')
+                @include('staff::styles._slider' , ['title' => 'h2'])
                 @break
                 @case('2')
-                @include('staff::styles._list')
+                @include('staff::styles._list' , ['title' => 'h2'])
                 @break
                 @case('3')
-                @include('staff::styles._rounded')
+                @include('staff::styles._rounded' , ['title' => 'h2'])
                 @break
                 @case('4')
-                @include('staff::styles._tags-list')
+                @include('staff::styles._tags-list' , ['title' => 'h3'])
                 @break
                 @case('5')
-                @include('staff::styles._tags-rounded')
+                @include('staff::styles._tags-rounded' , ['title' => 'h3'])
                 @break
             @endswitch
 
