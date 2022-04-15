@@ -13,7 +13,7 @@
 <div class="row align-content-stretch gy-4">
     @foreach($arrayTags[0] as $key => $value)
         <div class="col-12">
-            <h2>{{$key}}</h2>
+            <h2 class="py-2 px-3 rounded-3 border">{{$key}}</h2>
         </div>
         @foreach($staffs as $staff)
             @foreach($staff->tags as $tag)

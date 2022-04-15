@@ -1,6 +1,6 @@
 <div class="col-md-{{$column}} list-inline">
     <div class="card flex-md-nowrap flex-row position-relative rounded-3 overflow-hidden h-100">
-        <div class="w-25 d-flex align-items-center justify-content-center me-3 position-relative ">
+        <div class="w-25 d-flex align-items-center justify-content-center mx-3 position-relative ">
             <div
                 class="w-100 img-hover-zoom img-hover-zoom--colorize {{ $settings->settings()->settings->effect ?'hover': '' }}">
                 <img class="w-100 h-100"
