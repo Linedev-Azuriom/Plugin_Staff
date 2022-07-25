@@ -37,6 +37,9 @@
                         <option value="5" @if(isset($setting->settings()->settings->style) && $setting->settings()->settings->style == '5') selected @endif>
                             Tags - Rounded
                         </option>
+                        <option value="6" @if(isset($setting->settings()->settings->style) && $setting->settings()->settings->style == '6') selected @endif>
+                            Tags - Slider
+                        </option>
                     </select>
                 </div>
                 <div class="col-md-6">

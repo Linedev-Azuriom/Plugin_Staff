@@ -53,6 +53,9 @@
                 @case('5')
                 @include('staff::styles._tags-rounded' , ['title' => 'h3'])
                 @break
+                @case('6')
+                @include('staff::styles._tags-slider' , ['title' => 'h3'])
+                @break
             @endswitch
 
         @else
