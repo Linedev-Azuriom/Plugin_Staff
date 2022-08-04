@@ -68,14 +68,14 @@
         });
 
         document.getElementById('addLinkButton').addEventListener('click', function () {
-            let input = '<div class="row g-0"><div class="col-md-4">';
+            let input = '<div class="row g-0 mb-1"><div class="col-md-4">';
             input += '<input type="text" class="form-control" name="link[{index}][icon]" placeholder="{{ trans('messages.fields.icon') }}"></div>';
             input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][name]" placeholder="{{ trans('messages.fields.name') }}"></div></div>';
             input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="{{ trans('messages.fields.url') }}">';
             input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
-            input += '<i class="bi bi-trash-fill"></i></button></div></div></div></div></div>';
+            input += '<i class="bi bi-x-lg"></i></button></div></div></div></div></div>';
 
             const newElement = document.createElement('div');
             newElement.classList.add('link-parent')
@@ -98,9 +98,12 @@
         </div>
         <div class="col-xl-6 my-3">
             <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h3 class="mb-0">{{ trans('staff::admin.staff.title') }}</h3>
+                </div>
                 <div class="card-body">
-                    <h3>{{ trans('staff::admin.staff.title') }}</h3>
-                    <form action="{{ route('staff.admin.staff.store') }}" method="POST" id="staffForm"  enctype="multipart/form-data">
+                    <form action="{{ route('staff.admin.staff.store') }}" method="POST" id="staffForm"
+                          enctype="multipart/form-data">
                         <input type="hidden" name="pending_id" value="{{ $pendingId }}">
 
                         @include('admin.elements.editor', ['imagesUploadUrl' => route('admin.posts.attachments.pending', $pendingId)])
@@ -116,8 +119,10 @@
         </div>
         <div class="col-xl-6 my-3">
             <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h3 class="mb-0">{{ trans('staff::admin.staff.title-list') }}</h3>
+                </div>
                 <div class="card-body">
-                    <h3>{{ trans('staff::admin.staff.title-list') }}</h3>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>

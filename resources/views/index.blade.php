@@ -9,7 +9,7 @@
     @endpush
 @endif
 @push('styles')
-    @if($settings->settings()->settings->style ?? 1  == 1)
+    @if($settings->settings()->settings->style ?? 1 == 1)
         <link href="{{ plugin_asset('staff', 'css/glide.core.min.css') }} " rel="stylesheet">
         <link href="{{ plugin_asset('staff', 'css/glide.theme.min.css') }} " rel="stylesheet">
     @endif

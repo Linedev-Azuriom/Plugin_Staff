@@ -1,6 +1,9 @@
+
 <div class="card shadow mb-4">
+    <div class="card-header">
+        <h3 class="mb-0">{{ trans('staff::admin.setting.title') }}</h3>
+    </div>
     <div class="card-body">
-        <h3>{{ trans('staff::admin.setting.title') }}</h3>
         <form action="{{ route('staff.admin.settings.update', $setting) }}" method="POST">
             @method('PUT')
 

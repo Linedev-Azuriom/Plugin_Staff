@@ -4,14 +4,15 @@
         foreach ($staffs as $staff){
             if($staff->tags->count() >= 1){
                 foreach ($staff->tags as $tag){
-                    $arrayTags[] = $tag->pluck('id', 'name');
+                    $arrayTags[] = $tag->pluck('id', 'name', 'position');
                 }
             }
         }
     }
 @endphp
+
 @foreach($arrayTags[0] as $key => $value)
-    <div class="glide_staff position-relative">
+    <div class="glide_staff mt-4 position-relative">
         <div class="col-12">
             <h2 class="content-title py-2 px-3 rounded-3 border">{{$key}}</h2>
         </div>

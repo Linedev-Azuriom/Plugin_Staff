@@ -27,6 +27,7 @@ return [
         'deleted' => 'This tag has been deleted.',
     ],
     'link' => [
+        'index' => 'Links',
         'created' => 'The link  has been created.',
         'updated' => 'This link has been updated.',
         'deleted' => 'This link has been deleted.',

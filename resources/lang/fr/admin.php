@@ -27,6 +27,7 @@ return [
         'deleted' => 'Tag supprimé.',
     ],
     'link' => [
+        'index' => 'Liens',
         'created' => 'Lien créé.',
         'updated' => 'Lien mis à jour.',
         'deleted' => 'Lien supprimé.',

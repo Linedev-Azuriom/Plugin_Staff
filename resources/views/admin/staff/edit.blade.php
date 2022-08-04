@@ -61,7 +61,7 @@
         });
 
         document.getElementById('addLinkButton').addEventListener('click', function () {
-            let input = '<div class="row g-0"><div class="col-auto"> <i class="bi bi-arrows-move sortable-handle"></i> </div>';
+            let input = '<div class="row g-1 sortable-dropdown  align-items-center link-parent"><div class="col-auto"> <i class="bi bi-arrows-move sortable-handle"></i> </div>';
             input += '<div class="col-md-4">';
             input += '<input type="text" class="form-control" name="link[{index}][icon]" placeholder="{{ trans('messages.fields.icon') }}"></div>';
             input += '<div class="col-md-3"><div class="input-group">';
@@ -69,7 +69,7 @@
             input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="{{ trans('messages.fields.url') }}">';
             input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
-            input += '<i class="bi bi-trash-fill"></i></button></div></div></div></div>';
+            input += '<i class="bi bi-x-lg"></i></button></div></div></div></div>';
 
             const newElement = document.createElement('div');
             newElement.classList.add('link-parent')
@@ -81,6 +81,7 @@
 
             document.getElementById('links').appendChild(newElement);
         });
+
         function addLinkListener(el) {
             el.addEventListener('click', function () {
                 const element = el.parentNode.parentNode.parentNode.parentNode;
@@ -93,27 +94,31 @@
 
 @section('content')
     <div class="card shadow mb-4">
+        <div class="card-header d-flex align-items-center justify-content-between">
+            <h3 class="mb-0">{{ trans('staff::admin.staff.title-edit') }}</h3>
+
+            <a href="{{ route('staff.admin.staff.destroy', $staff) }}" class="btn btn-danger"
+               data-confirm="delete">
+                <i class="bi bi-trash-fill"></i> {{ trans('messages.actions.delete') }}
+            </a>
+        </div>
         <div class="card-body">
-            <h3>{{ trans('staff::admin.staff.title-edit') }}</h3>
-            <form action="{{ route('staff.admin.staff.update',$staff)}}" method="POST" id="staffForm" enctype="multipart/form-data">
+            <form action="{{ route('staff.admin.staff.update',$staff)}}" method="POST" id="staffForm"
+                  enctype="multipart/form-data">
                 @method('PUT')
 
                 @include('admin.elements.editor', ['imagesUploadUrl' => route('admin.posts.attachments.store', $staff)])
 
                 @include('staff::admin.staff._form')
 
+                <a href="{{ route('staff.admin.index') }}" class="btn btn-success float-right mr-3">
+                    <i class="bi bi-arrow-left"></i> {{ trans('messages.actions.back') }}
+                </a>
 
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
                 </button>
 
-                <a href="{{ route('staff.admin.staff.destroy', $staff) }}" class="btn btn-danger  float-right" data-confirm="delete">
-                    <i class="bi bi-trash-fill"></i> {{ trans('messages.actions.delete') }}
-                </a>
-
-                <a href="{{ route('staff.admin.index') }}" class="btn btn-success float-right mr-3">
-                    <i class="bi bi-arrow-left"></i> {{ trans('messages.actions.back') }}
-                </a>
             </form>
         </div>
     </div>

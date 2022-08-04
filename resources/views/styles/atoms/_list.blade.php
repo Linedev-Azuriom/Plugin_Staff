@@ -15,7 +15,7 @@
         </div>
         <div class="w-75">
             <div class="card-body">
-                <{{$title}} class="text-{{$alignment}}">{{$staff->name}}</{{$title}}>
+                <{{$title}} class="text-{{$alignment}} bg-transparent">{{$staff->name}}</{{$title}}>
                 @if($settings->settings()->settings->description)
                     <p>{!! $staff->description !!}</p>
                 @endif
