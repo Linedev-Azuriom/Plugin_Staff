@@ -6,6 +6,7 @@ return [
     'start' => 'Left',
     'center' => 'Center',
     'end' => 'Right',
+    'permission' => 'Manage staff members and their tags',
     'staff' => [
         'index' => 'Staff',
         'title' => 'Create staff',
@@ -29,6 +30,7 @@ return [
         'created' => 'The link  has been created.',
         'updated' => 'This link has been updated.',
         'deleted' => 'This link has been deleted.',
+        'is-create' => 'If a link is created, you are not able to edit order directly. You will have to save then edit.'
     ],
     'setting' => [
         'title' => 'Settings',

@@ -6,6 +6,7 @@ return [
     'start' => 'Gauche',
     'center' => 'Centré',
     'end' => 'Droite',
+    'permission' => 'Gérer les membres du staff et leurs tags',
     'staff' => [
         'index' => 'Staff',
         'title' => 'Créer un staff',
