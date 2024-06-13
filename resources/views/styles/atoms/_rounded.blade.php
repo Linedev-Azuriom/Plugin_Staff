@@ -34,7 +34,11 @@
                             <li class="list-inline-item">
                                 <a href="{{$link->url}}" title="{{$link->name}}"
                                    target="_blank">
-                                    {!! $link->icon !!}
+                                    @if(\Illuminate\Support\Str::contains($link->icon,'<i'))
+                                        {!! $link->icon !!}
+                                    @else
+                                        <i class="{{$link->icon}}"></i>
+                                    @endif
                                 </a>
                             </li>
                         @endforeach

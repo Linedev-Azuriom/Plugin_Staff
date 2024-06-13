@@ -59,9 +59,12 @@
                                             @if($staff->links->count() >= 1)
                                                 @foreach($staff->links as $link)
                                                     <li class="list-inline-item">
-                                                        <a href="{{$link->url}}" title="{{$link->name}}"
-                                                           target="_blank">
-                                                            {!! $link->icon !!}
+                                                        <a href="{{$link->url}}" title="{{$link->name}}" target="_blank">
+                                                            @if(\Illuminate\Support\Str::contains($link->icon,'<i'))
+                                                                {!! $link->icon !!}
+                                                            @else
+                                                                <i class="{{$link->icon}}"></i>
+                                                            @endif
                                                         </a>
                                                     </li>
                                                 @endforeach
