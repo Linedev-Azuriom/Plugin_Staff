@@ -1,6 +1,6 @@
 @csrf
 <div class="card-body">
-    <div class="form-group">
+    <div class="mb-3">
         <label class="form-label" for="nameInput">{{ trans('messages.fields.name') }}</label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="nameInput"
                name="name"
@@ -11,7 +11,7 @@
         @enderror
     </div>
 
-    <div class="form-group">
+    <div class="mb-3">
         <label class="form-label" for="colorInput">{{ trans('messages.fields.color') }}</label>
         <input type="color" class="form-control form-control-color color-picker @error('color') is-invalid @enderror" id="colorInput"
                name="color"  value="{{ old('color', $tag->color ?? '#2196f3') }}" required>

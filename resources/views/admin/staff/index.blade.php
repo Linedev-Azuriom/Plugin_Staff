@@ -47,7 +47,7 @@
 
         document.getElementById('staffForm').addEventListener('submit', function () {
             let i = 0;
-            document.getElementById('links').querySelectorAll('.form-row').forEach(function (el) {
+            document.getElementById('links').querySelectorAll('.link-parent').forEach(function (el) {
                 el.querySelectorAll('input').forEach(function (input) {
                     input.name = input.name.replace('{index}', i.toString());
                 });
@@ -68,16 +68,19 @@
         });
 
         document.getElementById('addLinkButton').addEventListener('click', function () {
-            let input = '<div class="row g-0"><div class="col-md-4">';
+            let input = '<div class="row g-0 mb-1"><div class="col-md-4">';
             input += '<input type="text" class="form-control" name="link[{index}][icon]" placeholder="{{ trans('messages.fields.icon') }}"></div>';
             input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][name]" placeholder="{{ trans('messages.fields.name') }}"></div></div>';
             input += '<div class="col-md-4"><div class="input-group">';
             input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="{{ trans('messages.fields.url') }}">';
             input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
-            input += '<i class="fas fa-times"></i></button></div></div></div></div></div>';
+            input += '<i class="bi bi-x-lg"></i></button></div></div></div></div></div>';
 
             const newElement = document.createElement('div');
+            newElement.classList.add('link-parent')
+            newElement.classList.add('sortable-dropdown')
+            newElement.classList.add('link-parent')
             newElement.innerHTML = input;
 
             addLinkListener(newElement.querySelector('.link-remove'));
@@ -95,9 +98,12 @@
         </div>
         <div class="col-xl-6 my-3">
             <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h3 class="mb-0">{{ trans('staff::admin.staff.title') }}</h3>
+                </div>
                 <div class="card-body">
-                    <h3>{{ trans('staff::admin.staff.title') }}</h3>
-                    <form action="{{ route('staff.admin.staff.store') }}" method="POST" id="staffForm"  enctype="multipart/form-data">
+                    <form action="{{ route('staff.admin.staff.store') }}" method="POST" id="staffForm"
+                          enctype="multipart/form-data">
                         <input type="hidden" name="pending_id" value="{{ $pendingId }}">
 
                         @include('admin.elements.editor', ['imagesUploadUrl' => route('admin.posts.attachments.pending', $pendingId)])
@@ -105,7 +111,7 @@
                         @include('staff::admin.staff._form')
 
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> {{ trans('messages.actions.save') }}
+                            <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
                         </button>
                     </form>
                 </div>
@@ -113,8 +119,10 @@
         </div>
         <div class="col-xl-6 my-3">
             <div class="card shadow mb-4">
+                <div class="card-header">
+                    <h3 class="mb-0">{{ trans('staff::admin.staff.title-list') }}</h3>
+                </div>
                 <div class="card-body">
-                    <h3>{{ trans('staff::admin.staff.title-list') }}</h3>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -129,17 +137,17 @@
                                 <tr class="sortable-dropdown staff-parent" data-staff-id="{{ $staff->id }}">
                                     <th scope="row">
                                         <div class="col-1">
-                                            <i class="fas fa-arrows-alt sortable-handle"></i>
+                                            <i class="bi bi-arrows-move sortable-handle"></i>
                                         </div>
                                     </th>
                                     <td>{{$staff->name}}</td>
                                     <td>
                                         <a href="{{ route('staff.admin.staff.edit', $staff) }}" class="mx-1"
                                            title="{{ trans('messages.actions.edit') }}" data-toggle="tooltip"><i
-                                                class="fas fa-edit"></i></a>
+                                                class="bi bi-pen-fill"></i></a>
                                         <a href="{{ route('staff.admin.staff.destroy', $staff) }}" class="mx-1"
                                            title="{{ trans('messages.actions.delete') }}" data-toggle="tooltip"
-                                           data-confirm="delete"><i class="fas fa-trash"></i></a>
+                                           data-confirm="delete"><i class="bi bi-trash-fill"></i></a>
                                     </td>
                                 </tr>
                             @empty

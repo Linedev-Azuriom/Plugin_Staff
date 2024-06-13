@@ -118,7 +118,7 @@ class AdminController extends Controller
     public function edit(Staff $staff)
     {
         return view('staff::admin.staff.edit', [
-            'tags'  => Tag::all(),
+            'tags'  => Tag::orderBy('position')->get(),
             'staff' => $staff,
         ]);
     }
