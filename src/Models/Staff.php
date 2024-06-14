@@ -2,29 +2,25 @@
 
 namespace Azuriom\Plugin\Staff\Models;
 
-
 use Azuriom\Models\Traits\Attachable;
 use Azuriom\Models\Traits\HasImage;
 use Azuriom\Models\Traits\HasTablePrefix;
 use Azuriom\Models\User;
-use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Staff
  *
- * @property integer        $id
- * @property string|null    $image
- * @property string         $name
- * @property string         description
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- *
- * @package Azuriom\Plugin\Staff\Models
+ * @property int $id
+ * @property string|null $image
+ * @property string $name
+ * @property string description
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
  */
 class Staff extends Model
 {
-
     use Attachable;
     use HasImage;
     use HasTablePrefix;
@@ -48,9 +44,7 @@ class Staff extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'position' => 'integer'
-    ];
+    protected $casts = ['position' => 'integer'];
 
     /**
      * Get all of the tags for the staff.
@@ -60,16 +54,16 @@ class Staff extends Model
         return $this->morphToMany(Tag::class, 'taggable', 'staff_taggables')->orderBy('position');
     }
 
-    public function user(){
-        if (User::where('name', $this->name)->first())
+    public function user()
+    {
+        if (User::where('name', $this->name)->first()) {
             $user = User::where('name', $this->name)->first()->role();
-        else{
+        } else {
             $user = '';
         }
 
         return $user;
     }
-
 
     /**
      * Get all of the links for the staff.
@@ -79,12 +73,12 @@ class Staff extends Model
         return $this->hasMany(Link::class)->orderBy('position');
     }
 
-    function isSelected($id)
+    public function isSelected($id)
     {
-        if (!($ids = old('tags'))) {
+        if (! ($ids = old('tags'))) {
             $ids = $this->tags->pluck('id');
         }
-        return collect($ids)
-            ->contains($id) ? 'selected' : '';
+
+        return collect($ids)->contains($id) ? 'selected' : '';
     }
 }

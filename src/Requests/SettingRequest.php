@@ -10,7 +10,7 @@ class SettingRequest extends FormRequest
     use ConvertCheckbox;
 
     /**
-     * The checkboxes attributes.
+     * The checkboxes attribute.
      *
      * @var array
      */
@@ -23,13 +23,13 @@ class SettingRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name'                   => 'string',
-            'settings.*'               => ['required', 'array'],
+            'name' => 'string',
+            'settings.*' => ['required', 'array'],
             'description' => ['filled', 'boolean'],
-            'effect'      => ['filled', 'boolean'],
+            'effect' => ['filled', 'boolean'],
         ];
     }
 }
