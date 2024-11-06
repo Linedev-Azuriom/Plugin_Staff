@@ -3,8 +3,8 @@
 namespace Azuriom\Plugin\Staff\Controllers\Admin;
 
 use Azuriom\Http\Controllers\Controller;
+use Azuriom\Models\Setting;
 use Azuriom\Plugin\Staff\Models\Link;
-use Azuriom\Plugin\Staff\Models\Setting;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Azuriom\Plugin\Staff\Requests\StaffRequest;
@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
-
     /**
      * The storage path for uploaded images.
      *
@@ -25,23 +24,21 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View
      */
     public function index()
     {
-
-        $setting = Setting::first();
+        $setting = collect(json_decode(Setting::where('name', 'staff.settings')->first()->value ?? '{}', true));
         $staffs = Staff::orderBy('position')->get();
         $tags = Tag::orderBy('position')->get();
         $pendingId = old('pending_id', Str::uuid());
-        return view('staff::admin.staff.index', compact('staffs', "tags", 'pendingId', 'setting'));
-    }
 
+        return view('staff::admin.staff.index', compact('staffs', 'tags', 'pendingId', 'setting'));
+    }
 
     /**
      * Update the order of the resources.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      *
@@ -65,7 +62,6 @@ class AdminController extends Controller
         }
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -78,14 +74,12 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Azuriom\Plugin\staff\Requests\StaffRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StaffRequest $request)
     {
         $staff = Staff::create(Arr::except($request->validated(), 'image'));
-
 
         if ($request->hasFile('image')) {
             $staff->storeImage($request->file('image'), true);
@@ -96,12 +90,12 @@ class AdminController extends Controller
         $staff->tags()->sync($request->tags);
 
         foreach ($request->input('link') as $link) {
-            if (!empty($link['name']) && !empty($link['url']) && !empty($link['icon'])) {
+            if (! empty($link['name']) && ! empty($link['url']) && ! empty($link['icon'])) {
                 Link::create([
-                    'name'     => $link['name'],
-                    'url'      => $link['url'],
-                    'icon'     => $link['icon'],
-                    'staff_id' => $staff->id
+                    'name' => $link['name'],
+                    'url' => $link['url'],
+                    'icon' => $link['icon'],
+                    'staff_id' => $staff->id,
                 ]);
             }
         }
@@ -112,13 +106,11 @@ class AdminController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param \Azuriom\Plugin\Staff\Models\Staff $staff
      */
     public function edit(Staff $staff)
     {
         return view('staff::admin.staff.edit', [
-            'tags'  => Tag::orderBy('position')->get(),
+            'tags' => Tag::orderBy('position')->get(),
             'staff' => $staff,
         ]);
     }
@@ -126,10 +118,8 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Azuriom\Plugin\Staff\Requests\StaffRequest $request
-     * @param \Azuriom\Plugin\Staff\Models\Staff          $category
-     *
-     * @return \Illuminate\Http\Response
+     * @param  \Azuriom\Plugin\Staff\Models\Staff  $category
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(StaffRequest $request, Staff $staff)
     {
@@ -142,24 +132,24 @@ class AdminController extends Controller
         $staff->tags()->sync($request->tags);
 
         foreach ($request->input('link') as $link) {
-            if (!empty($link['name']) && !empty($link['url']) && !empty($link['icon'])) {
+            if (! empty($link['name']) && ! empty($link['url']) && ! empty($link['icon'])) {
                 if (isset($link['id'])) {
-                    if (Link::where('staff_id', $staff->id)){
+                    if (Link::where('staff_id', $staff->id)) {
 
-                    Link::find($link['id'])->update([
-                        'name' => $link['name'],
-                        'url'  => $link['url'],
-                        'icon' => $link['icon']
-                    ]);
+                        Link::find($link['id'])->update([
+                            'name' => $link['name'],
+                            'url' => $link['url'],
+                            'icon' => $link['icon'],
+                        ]);
                     }
                 } else {
                     $countLink = Link::where('staff_id', $staff->id)->count();
                     Link::create([
-                        'name'     => $link['name'],
-                        'url'      => $link['url'],
-                        'icon'     => $link['icon'],
+                        'name' => $link['name'],
+                        'url' => $link['url'],
+                        'icon' => $link['icon'],
                         'staff_id' => $staff->id,
-                        'position' => $countLink + 1
+                        'position' => $countLink + 1,
                     ]);
                 }
             }
@@ -172,9 +162,8 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \Azuriom\Plugin\Staff\Models\Staff $staff
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Exception
      */

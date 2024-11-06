@@ -27,7 +27,7 @@ Route::middleware('can:staff.admin')->group(function () {
     Route::resource('tags', TagController::class);
     Route::post('tags/update-order', [TagController::class, 'updateOrder'])->name('tags.update-order');
 
-    Route::resource('settings', SettingController::class)->only('update');
+    Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
 
     Route::resource('links', LinkController::class)->only('destroy');
     Route::post('links/update-order', [LinkController::class, 'updateOrder'])->name('links.update-order');

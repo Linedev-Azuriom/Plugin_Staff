@@ -4,7 +4,7 @@
         <h3 class="mb-0">{{ trans('staff::admin.setting.title') }}</h3>
     </div>
     <div class="card-body">
-        <form action="{{ route('staff.admin.settings.update', $setting) }}" method="POST">
+        <form action="{{ route('staff.admin.settings.update') }}" method="POST">
             @method('PUT')
 
             @include('staff::admin.settings._form')

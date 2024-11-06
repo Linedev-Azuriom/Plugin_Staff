@@ -13,18 +13,18 @@ class TagController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View
      */
     public function index()
     {
         $tags = Tag::orderBy('position')->get();
+
         return view('staff::admin.tags.index', compact('tags'));
     }
 
     /**
      * Update the order of the resources.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      *
@@ -60,9 +60,8 @@ class TagController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Azuriom\Plugin\Staff\Requests\TagRequest $tagRequest
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(TagRequest $tagRequest)
     {
@@ -75,7 +74,7 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View
      */
     public function edit(Tag $tag)
     {
@@ -85,11 +84,12 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(TagRequest $request, Tag $tag)
     {
         $tag->update($request->validated());
+
         return redirect()->route('staff.admin.tags.index')
             ->with('success', trans('staff::admin.tag.updated'));
     }
@@ -97,9 +97,8 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \Azuriom\Plugin\Staff\Models\Tag $tag
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Exception
      */

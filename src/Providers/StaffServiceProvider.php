@@ -8,6 +8,7 @@ use Azuriom\Plugin\Staff\Models\Setting;
 use Azuriom\Plugin\Staff\Models\Staff;
 use Azuriom\Plugin\Staff\Models\Tag;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class StaffServiceProvider extends BasePluginServiceProvider
@@ -47,19 +48,6 @@ class StaffServiceProvider extends BasePluginServiceProvider
             'staff' => Staff::class,
             'tag'   => Tag::class,
         ]);
-
-        if (Schema::hasTable('staff_settings')) {
-            if (!Setting::first()) {
-                $checkbox = array(
-                    'description' => false,
-                    'effect'      => true
-                );
-                $setting = new Setting();
-                $setting->name = 'global';
-                $setting->settings = $checkbox;
-                $setting->save();
-            }
-        }
 
         Permission::registerPermissions([
             'staff.admin' => 'staff::admin.permission',

@@ -23,14 +23,14 @@
                         @if($tag->id == $value)
                             <li class="glide__slide h-auto">
                                 <div class="card h-100">
-                                    @if(!empty($staff->description && !$settings->settings()->settings->description))
+                                    @if(!empty($staff->description && !$settings['description']))
                                         <div class="description bg-white position-absolute top-0 left-0 p-3 rounded-2">
                                             <p>{!! $staff->description !!}</p>
                                         </div>
                                     @endif
                                     <div class="text-center">
                                         <div
-                                            class="img-hover-zoom img-hover-zoom--colorize w-100 {{ $settings->settings()->settings->effect ?'hover': '' }}">
+                                            class="img-hover-zoom img-hover-zoom--colorize w-100 {{ $settings['effect'] ?'hover': '' }}">
                                             <img class="shadow" style="height: 210px"
                                                  src="{{isset($staff->image) && $staff->image != null ? image_url('../staff/'.$staff->image) :  (game()->name() === 'Minecraft' ? 'https://mc-heads.net/avatar/'.$staff->name.'/100' : '') }}"
                                                  alt="{{$staff->name}}">
@@ -41,7 +41,7 @@
                                         <div class="my-2 text-center">
                                             <h2>{{$staff->name}}</h2>
                                         </div>
-                                        @if($settings->settings()->settings->description)
+                                        @if($settings['description'])
                                             <div class="mt-3">
                                                 {!! $staff->description !!}
                                             </div>
