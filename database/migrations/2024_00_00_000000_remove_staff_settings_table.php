@@ -15,7 +15,15 @@ return new class extends Migration
     public function up()
     {
 
-        Setting::updateSettings('staff.settings', DB::table('staff_settings')?->first()?->settings ?? []);
+        $default = [
+            'description' => true,
+            'effect' => true,
+            'style' => '1',
+            'column' => '1',
+            'alignment' => 'start',
+        ];
+
+        Setting::updateSettings('staff.settings', Schema::hasTable('staff_settings') ? DB::table('staff_settings')?->first()?->settings : $default);
 
         Schema::dropIfExists('staff_settings');
     }

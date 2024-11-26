@@ -1,15 +1,14 @@
 @extends('layouts.app')
 
 @section('title', 'Staff')
-
-@if(isset($settings['style']))
+@if(isset($settings['style']) && $settings['style'] === "1")
     @push('scripts')
         <script defer data-cfasync="false" src="{{ plugin_asset('staff', 'js/glide.min.js') }} "></script>
         <script defer data-cfasync="false" src="{{ plugin_asset('staff', 'js/script.js') }} "></script>
     @endpush
 @endif
 @push('styles')
-    @if(isset($settings['style']))
+    @if(isset($settings['style']) && $settings['style'] === "1")
         <link href="{{ plugin_asset('staff', 'css/glide.core.min.css') }} " rel="stylesheet">
         <link href="{{ plugin_asset('staff', 'css/glide.theme.min.css') }} " rel="stylesheet">
     @endif
