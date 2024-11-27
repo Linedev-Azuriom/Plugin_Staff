@@ -16,7 +16,7 @@ class StaffHomeController extends Controller
      */
     public function index()
     {
-        $settings = collect(json_decode(Setting::where('name', 'staff.settings')->first()->value, true, 512, JSON_THROW_ON_ERROR));
+        $settings = collect(json_decode(Setting::where('name', 'staff.settings')?->first()?->value, true, 512, JSON_THROW_ON_ERROR));
         $staffs = Staff::orderBy('position')->get();
         return view('staff::index', compact('staffs', 'settings'));
     }
