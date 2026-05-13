@@ -19,10 +19,11 @@ class SettingController extends Controller
 
         $input = [
             'description' => $request->has('description'),
-            'effect' => $request->has('effect'),
-            'style' => $request->input('style'),
-            'column' => $request->input('column'),
-            'alignment' => $request->input('alignment'),
+            'effect'      => $request->has('effect'),
+            'style'       => $request->input('style'),
+            'column'      => $request->input('column'),
+            'alignment'   => $request->input('alignment'),
+            'avatar_size' => max(90, min(320, (int) $request->input('avatar_size', 120))),
         ];
 
         Setting::updateSettings('staff.settings', json_encode($input, JSON_THROW_ON_ERROR));

@@ -29,7 +29,7 @@ class AdminController extends Controller
     public function index()
     {
         $setting = collect(json_decode(Setting::where('name', 'staff.settings')->first()->value ?? '{}', true));
-        $staffs = Staff::orderBy('position')->get();
+        $staffs = Staff::with('tags')->orderBy('position')->get();
         $tags = Tag::orderBy('position')->get();
         $pendingId = old('pending_id', Str::uuid());
 

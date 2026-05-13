@@ -1,125 +1,138 @@
 @extends('admin.layouts.admin')
 
-@section('title', trans('staff::admin.staff.title-edit') .': '.$staff->name)
+@section('title', trans('staff::admin.staff.title-edit') . ' : ' . $staff->name)
 
 @push('footer-scripts')
     <script src="{{ asset('vendor/sortablejs/Sortable.min.js') }}"></script>
     <script>
-        const sortable = Sortable.create(document.getElementById('links'), {
-            group: {
-                name: 'packages',
-                put: function (to, sortable, drag) {
-                    if (!drag.classList.contains('staff-parent')) {
-                        return true;
-                    }
+    document.addEventListener('DOMContentLoaded', function () {
 
-                    return !drag.querySelector('.link-parent .link-parent')
-                        && drag.parentNode.id === 'links';
+        // ---- Sortable des liens ----
+        const linksEl = document.getElementById('links');
+        if (linksEl) {
+            Sortable.create(linksEl, {
+                animation: 150,
+                handle: '.sortable-handle',
+                onEnd: function () {
+                    const items = Array.from(linksEl.children)
+                        .filter(function(c) { return c.dataset.linkId; })
+                        .map(function(c) { return { id: c.dataset.linkId }; });
+                    axios.post('{{ route('staff.admin.links.update-order') }}', { links: items })
+                        .catch(console.error);
                 },
-            },
-            animation: 150,
-            handle: '.sortable-handle',
-            onEnd: function (event) {
-                axios.post('{{ route('staff.admin.links.update-order') }}', {
-                    'links': serialize(sortable.el),
-                })
-                    .then(function (response) {
-                        console.log(serialize(sortable.el))
-                        console.log(response)
-                    })
-                    .catch(function (error) {
-                        console.log(error)
-                    })
-            },
-        });
-
-        function serializeLink(link, preventNested = false) {
-            return {
-                id: link.dataset['linkId'],
-            };
-        }
-
-        function serialize(links) {
-            return [].slice.call(links.children).map(function (link) {
-                return serializeLink(link);
             });
         }
 
-        document.getElementById('staffForm').addEventListener('submit', function () {
-            let i = 0;
-            document.getElementById('links').querySelectorAll('.link-parent').forEach(function (el) {
-                el.querySelectorAll('input').forEach(function (input) {
-                    input.name = input.name.replace('{index}', i.toString());
+        // ---- Renommage des inputs link[] à la soumission ----
+        const staffForm = document.getElementById('staffForm');
+        if (staffForm) {
+            staffForm.addEventListener('submit', function () {
+                let i = 0;
+                linksEl.querySelectorAll('.link-parent').forEach(function (el) {
+                    el.querySelectorAll('input').forEach(function (input) {
+                        input.name = input.name.replace('{index}', i.toString());
+                    });
+                    i++;
                 });
-                i++;
-            });
-        });
-
-
-        document.querySelectorAll('.link-remove').forEach(function (el) {
-            addLinkListener(el);
-        });
-
-        document.getElementById('addLinkButton').addEventListener('click', function () {
-            let input = '<div class="row g-1 sortable-dropdown  align-items-center link-parent"><div class="col-auto"> <i class="bi bi-arrows-move sortable-handle"></i> </div>';
-            input += '<div class="col-md-4">';
-            input += '<input type="text" class="form-control" name="link[{index}][icon]" placeholder="{{ trans('messages.fields.icon') }}"></div>';
-            input += '<div class="col-md-3"><div class="input-group">';
-            input += '<input type="text" class="form-control" name="link[{index}][name]" placeholder="{{ trans('messages.fields.name') }}"></div></div>';
-            input += '<div class="col-md-4"><div class="input-group">';
-            input += '<input type="text" class="form-control" name="link[{index}][url]" placeholder="{{ trans('messages.fields.url') }}">';
-            input += '<div class="input-group-append"><button class="btn btn-outline-danger link-remove" type="button">';
-            input += '<i class="bi bi-x-lg"></i></button></div></div></div></div>';
-
-            const newElement = document.createElement('div');
-            newElement.classList.add('link-parent')
-            newElement.classList.add('sortable-dropdown')
-            newElement.classList.add('link-parent')
-            newElement.innerHTML = input;
-
-            addLinkListener(newElement.querySelector('.link-remove'));
-
-            document.getElementById('links').appendChild(newElement);
-        });
-
-        function addLinkListener(el) {
-            el.addEventListener('click', function () {
-                const element = el.parentNode.parentNode.parentNode.parentNode;
-                element.parentNode.removeChild(element);
             });
         }
 
+        // ---- Ajout / suppression de liens ----
+        function addLinkRemoveListener(btn) {
+            btn.addEventListener('click', function () {
+                const parent = btn.closest('.link-parent');
+                if (parent) parent.remove();
+            });
+        }
+
+        document.querySelectorAll('.link-remove').forEach(addLinkRemoveListener);
+
+        const addLinkBtn = document.getElementById('addLinkButton');
+        if (addLinkBtn) {
+            addLinkBtn.addEventListener('click', function () {
+                const tpl = document.getElementById('linkRowTemplate');
+                const clone = tpl.content.cloneNode(true);
+                const wrap = clone.querySelector('.link-parent');
+                addLinkRemoveListener(wrap.querySelector('.link-remove'));
+                linksEl.appendChild(wrap);
+            });
+        }
+    });
     </script>
 @endpush
 
 @section('content')
-    <div class="card shadow mb-4">
-        <div class="card-header d-flex align-items-center justify-content-between">
-            <h3 class="mb-0">{{ trans('staff::admin.staff.title-edit') }}</h3>
 
-            <a href="{{ route('staff.admin.staff.destroy', $staff) }}" class="btn btn-danger"
+    {{-- Template lien (static, sécurisé) --}}
+    <template id="linkRowTemplate">
+        <div class="row g-1 mb-1 align-items-center link-parent">
+            <div class="col-auto">
+                <i class="bi bi-arrows-move sortable-handle text-muted" style="cursor:grab"></i>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-sm"
+                       name="link[{index}][icon]"
+                       placeholder="{{ trans('messages.fields.icon') }}">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control form-control-sm"
+                       name="link[{index}][name]"
+                       placeholder="{{ trans('messages.fields.name') }}">
+            </div>
+            <div class="col">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control"
+                           name="link[{index}][url]"
+                           placeholder="{{ trans('messages.fields.url') }}">
+                    <button class="btn btn-outline-danger link-remove" type="button">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <a href="{{ route('staff.admin.index') }}"
+                   class="btn btn-sm btn-outline-secondary"
+                   title="{{ trans('messages.actions.back') }}">
+                    <i class="bi bi-arrow-left"></i>
+                </a>
+                <span class="fw-semibold">
+                    {{ trans('staff::admin.staff.title-edit') }} :
+                    <span class="text-primary">{{ $staff->name }}</span>
+                </span>
+            </div>
+            <a href="{{ route('staff.admin.staff.destroy', $staff) }}"
+               class="btn btn-sm btn-danger"
                data-confirm="delete">
-                <i class="bi bi-trash-fill"></i> {{ trans('messages.actions.delete') }}
+                <i class="bi bi-trash-fill me-1"></i> {{ trans('messages.actions.delete') }}
             </a>
         </div>
+
         <div class="card-body">
-            <form action="{{ route('staff.admin.staff.update',$staff)}}" method="POST" id="staffForm"
-                  enctype="multipart/form-data">
+            <form action="{{ route('staff.admin.staff.update', $staff) }}"
+                  method="POST" id="staffForm" enctype="multipart/form-data">
                 @method('PUT')
 
-                @include('admin.elements.editor', ['imagesUploadUrl' => route('admin.posts.attachments.store', $staff)])
+                @include('admin.elements.editor', [
+                    'imagesUploadUrl' => route('admin.posts.attachments.store', $staff)
+                ])
 
                 @include('staff::admin.staff._form')
 
-                <a href="{{ route('staff.admin.index') }}" class="btn btn-success float-right mr-3">
-                    <i class="bi bi-arrow-left"></i> {{ trans('messages.actions.back') }}
-                </a>
-
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-save"></i> {{ trans('messages.actions.save') }}
-                </button>
-
+                <div class="d-flex gap-2 mt-3">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i> {{ trans('messages.actions.save') }}
+                    </button>
+                    <a href="{{ route('staff.admin.index') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> {{ trans('messages.actions.back') }}
+                    </a>
+                </div>
             </form>
         </div>
     </div>
+
 @endsection
