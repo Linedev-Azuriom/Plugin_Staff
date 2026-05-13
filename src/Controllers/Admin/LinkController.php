@@ -44,7 +44,7 @@ class LinkController extends Controller
      *
      * @param \Azuriom\Plugin\Staff\Models\Link $link
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Exception
      */

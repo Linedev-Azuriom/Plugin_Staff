@@ -2,18 +2,15 @@
 
 namespace Azuriom\Plugin\Staff\Models;
 
-
 use Azuriom\Models\Traits\HasTablePrefix;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Tag
  *
- * @property integer $id
- * @property string  $name
- * @property string  $color
- *
- * @package Azuriom\Plugin\Staff\Models
+ * @property int $id
+ * @property string $name
+ * @property string $color
  */
 class Tag extends Model
 {
