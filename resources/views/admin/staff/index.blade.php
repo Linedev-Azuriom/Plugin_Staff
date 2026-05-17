@@ -348,6 +348,12 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
 .ldp2-tags{display:flex;flex-wrap:wrap;gap:.28rem;}
 .ldp2-tag{font-size:.58rem;font-weight:600;padding:.16em .55em;border-radius:20px;background:rgba(99,102,241,.09);color:#6366f1;border:1px solid rgba(99,102,241,.2);}
 .ldp2-favicon{width:15px;height:15px;border-radius:2px;object-fit:contain;flex-shrink:0;}
+.ldp2-btn-discord{color:#5865F2;border-color:rgba(88,101,242,.35);}
+.ldp2-btn-discord:hover{background:#5865F2;color:#fff!important;border-color:#5865F2;}
+.ldp2-btn-tiktok{color:#010101;border-color:rgba(0,0,0,.25);}
+.ldp2-btn-tiktok:hover{background:#010101;color:#fff!important;border-color:#010101;}
+.ldp2-btn-youtube{color:#FF0000;border-color:rgba(255,0,0,.32);}
+.ldp2-btn-youtube:hover{background:#FF0000;color:#fff!important;border-color:#FF0000;}
 /* ----------------------------------------------------------------- */
 
 /* Navigation pills -------------------------------------------------  */
@@ -396,6 +402,20 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                         <span class="ldp2-tag">Application Web</span>
                         <span class="ldp2-tag">Thèmes Azuriom</span>
                         <span class="ldp2-tag">Plugins</span>
+                    </div>
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                        <a href="https://lank.li/discord-linedev" target="_blank" rel="noopener"
+                           class="ldp2-btn ldp2-btn-discord">
+                            <i class="bi bi-discord"></i> Support &amp; tickets
+                        </a>
+                        <a href="https://www.tiktok.com/@linedev_" target="_blank" rel="noopener"
+                           class="ldp2-btn ldp2-btn-tiktok">
+                            <i class="bi bi-tiktok"></i> @linedev_
+                        </a>
+                        <a href="https://www.youtube.com/playlist?list=PLEF6-BIiO7ACVXzouHHSg_gW75Pq5HPDd" target="_blank" rel="noopener"
+                           class="ldp2-btn ldp2-btn-youtube">
+                            <i class="bi bi-youtube"></i> Tutoriels
+                        </a>
                     </div>
                 </div>
             </div>
@@ -485,7 +505,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
 
                 {{-- ---- Formulaire de création ---- --}}
                 <div class="col-xl-5">
-                    <div class="card border-0 shadow-sm h-100">
+                    <div class="card border-0 shadow-sm mb-0 h-100">
                         <div class="card-header bg-primary text-white d-flex align-items-center gap-2">
                             <i class="bi bi-person-plus-fill"></i>
                             <span class="fw-semibold">{{ trans('staff::admin.staff.title') }}</span>
@@ -511,7 +531,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
 
                 {{-- ---- Liste des staffs ---- --}}
                 <div class="col-xl-7">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0 shadow-sm mb-0">
                         <div class="card-header d-flex align-items-center justify-content-between flex-wrap gap-2">
                             <span class="fw-semibold d-flex align-items-center gap-2">
                                 <i class="bi bi-list-ul"></i>
@@ -659,7 +679,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
 
                 {{-- Formulaire création tag --}}
                 <div class="col-md-5">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0 shadow-sm mb-0">
                         <div class="card-header bg-success text-white d-flex align-items-center gap-2">
                             <i class="bi bi-tag-fill"></i>
                             <span class="fw-semibold">{{ trans('staff::admin.tag.title') }}</span>
@@ -677,7 +697,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
 
                 {{-- Liste des tags --}}
                 <div class="col-md-7">
-                    <div class="card border-0 shadow-sm">
+                    <div class="card border-0 shadow-sm mb-0">
                         <div class="card-header d-flex align-items-center gap-2">
                             <i class="bi bi-list-ul"></i>
                             <span class="fw-semibold">{{ trans('staff::admin.tag.title-list') }}</span>
@@ -741,7 +761,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
 
         {{-- ==================== TAB PARAMÈTRES ==================== --}}
         <div class="tab-pane fade" id="tab-settings" role="tabpanel">
-            <div class="card border-0 shadow-sm">
+            <div class="card border-0 shadow-sm mb-0">
                 <div class="card-header d-flex align-items-center gap-2">
                     <i class="bi bi-sliders"></i>
                     <span class="fw-semibold">{{ trans('staff::admin.setting.title') }}</span>
