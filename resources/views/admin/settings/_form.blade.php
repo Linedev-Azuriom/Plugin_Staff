@@ -250,7 +250,7 @@
     {{-- ====================== Affichage ====================== --}}
     <div class="col-md-6">
         <p class="fw-semibold mb-2 d-flex align-items-center gap-1">
-            <i class="bi bi-toggles text-primary"></i> Affichage
+            <i class="bi bi-toggles text-primary"></i> {{ trans('staff::admin.setting.display') }}
         </p>
 
         <div class="d-flex flex-column gap-2">
@@ -274,26 +274,26 @@
     {{-- ====================== Mise en page ====================== --}}
     <div class="col-md-6">
         <p class="fw-semibold mb-2 d-flex align-items-center gap-1">
-            <i class="bi bi-layout-three-columns text-primary"></i> Mise en page
+            <i class="bi bi-layout-three-columns text-primary"></i> {{ trans('staff::admin.setting.layout') }}
         </p>
 
         <div class="row g-2">
             <div class="col-6">
                 <label class="form-label small fw-semibold mb-1">
-                    Colonnes
+                    {{ trans('staff::admin.setting.columns') }}
                     <span class="text-muted fw-normal">{{ trans('staff::admin.setting.settings.column') }}</span>
                 </label>
                 <select class="form-select form-select-sm" name="column">
                     @for($i = 1; $i <= 6; $i++)
                         <option value="{{ $i }}" @selected(isset($setting['column']) && $setting['column'] == $i)>
-                            {{ $i }} colonne{{ $i > 1 ? 's' : '' }}
+                            {{ $i }} {{ trans_choice('staff::admin.setting.column-unit', $i) }}
                         </option>
                     @endfor
                 </select>
             </div>
             <div class="col-6">
                 <label class="form-label small fw-semibold mb-1">
-                    Alignement
+                    {{ trans('staff::admin.setting.alignment-label') }}
                     <span class="text-muted fw-normal">{{ trans('staff::admin.setting.settings.alignment') }}</span>
                 </label>
                 <select class="form-select form-select-sm" name="alignment">
@@ -317,8 +317,8 @@
     {{-- ====================== Taille des avatars ====================== --}}
     <div class="col-12">
         <p class="fw-semibold mb-2 d-flex align-items-center gap-1">
-            <i class="bi bi-person-circle text-primary"></i> Taille des avatars
-            <small class="text-muted fw-normal ms-1">Styles Rounded &amp; Tags Rounded</small>
+            <i class="bi bi-person-circle text-primary"></i> {{ trans('staff::admin.setting.avatar-size') }}
+            <small class="text-muted fw-normal ms-1">{{ trans('staff::admin.setting.avatar-size-note') }}</small>
         </p>
         <div class="d-flex align-items-center gap-3">
             <input type="range" class="form-range flex-grow-1"
@@ -334,14 +334,14 @@
             <small class="text-muted">320px</small>
         </div>
         <p class="text-muted small mt-1 mb-0">
-            <i class="bi bi-phone me-1"></i>Sur mobile, la taille est automatiquement réduite pour tenir dans l'écran.
+            <i class="bi bi-phone me-1"></i>{{ trans('staff::admin.setting.avatar-mobile-note') }}
         </p>
     </div>
 
     {{-- ====================== Sélecteur de style (full width) ====================== --}}
     <div class="col-12">
         <p class="fw-semibold mb-2 d-flex align-items-center gap-1">
-            <i class="bi bi-grid-1x2 text-primary"></i> Style d'affichage
+            <i class="bi bi-grid-1x2 text-primary"></i> {{ trans('staff::admin.setting.display-style') }}
             <small class="text-muted fw-normal ms-1">{{ trans('staff::admin.setting.settings.style') }}</small>
         </p>
 
@@ -349,7 +349,7 @@
         <div class="style-preview-strip" id="stylePreviewStrip">
             <div class="style-preview-header">
                 <i class="bi bi-eye"></i>
-                <span id="stylePreviewTitle">Aperçu du style sélectionné</span>
+                <span id="stylePreviewTitle">{{ trans('staff::admin.setting.style-preview') }}</span>
             </div>
             <div class="style-preview-body">
 
@@ -363,7 +363,7 @@
                         <div class="prev-arrow"><i class="bi bi-chevron-right"></i></div>
                     </div>
                     <p class="preview-desc text-center">
-                        Carousel défilant — idéal pour de grandes équipes avec peu d'espace.
+                        {{ trans('staff::admin.setting.styles.1.desc') }}
                     </p>
                 </div>
 
@@ -382,7 +382,7 @@
                         @endfor
                     </div>
                     <p class="preview-desc text-center">
-                        Liste horizontale — vue compacte avec avatar, nom et rôle.
+                        {{ trans('staff::admin.setting.styles.2.desc') }}
                     </p>
                 </div>
 
@@ -399,7 +399,7 @@
                         @endfor
                     </div>
                     <p class="preview-desc text-center">
-                        Cartes arrondies — avatars circulaires, design épuré et moderne.
+                        {{ trans('staff::admin.setting.styles.3.desc') }}
                     </p>
                 </div>
 
@@ -421,7 +421,7 @@
                         </div>
                     </div>
                     <p class="preview-desc text-center">
-                        Liste groupée par tag — membres organisés par rôle en liste.
+                        {{ trans('staff::admin.setting.styles.4.desc') }}
                     </p>
                 </div>
 
@@ -445,7 +445,7 @@
                         </div>
                     </div>
                     <p class="preview-desc text-center">
-                        Cartes rondes groupées par tag — organisation visuelle par rôle.
+                        {{ trans('staff::admin.setting.styles.5.desc') }}
                     </p>
                 </div>
 
@@ -461,7 +461,7 @@
                         </div>
                     </div>
                     <p class="preview-desc text-center">
-                        Slider par tag — un carrousel dédié à chaque groupe de rôles.
+                        {{ trans('staff::admin.setting.styles.6.desc') }}
                     </p>
                 </div>
 
@@ -471,12 +471,12 @@
         {{-- Grille de sélection de style --}}
         @php
             $styleOptions = [
-                ['value' => '1', 'icon' => 'bi-collection-play', 'label' => 'Slider',        'desc' => 'Carousel défilant'],
-                ['value' => '2', 'icon' => 'bi-view-list',       'label' => 'List',           'desc' => 'Cartes en liste'],
-                ['value' => '3', 'icon' => 'bi-grid',            'label' => 'Rounded',        'desc' => 'Avatars circulaires'],
-                ['value' => '4', 'icon' => 'bi-tags',            'label' => 'Tags — List',    'desc' => 'Liste par rôle'],
-                ['value' => '5', 'icon' => 'bi-person-badge',    'label' => 'Tags — Rounded', 'desc' => 'Grille par rôle'],
-                ['value' => '6', 'icon' => 'bi-collection',      'label' => 'Tags — Slider',  'desc' => 'Slider par rôle'],
+                ['value' => '1', 'icon' => 'bi-collection-play', 'label' => 'Slider',        'desc' => trans('staff::admin.setting.styles.1.label')],
+                ['value' => '2', 'icon' => 'bi-view-list',       'label' => 'List',           'desc' => trans('staff::admin.setting.styles.2.label')],
+                ['value' => '3', 'icon' => 'bi-grid',            'label' => 'Rounded',        'desc' => trans('staff::admin.setting.styles.3.label')],
+                ['value' => '4', 'icon' => 'bi-tags',            'label' => 'Tags — List',    'desc' => trans('staff::admin.setting.styles.4.label')],
+                ['value' => '5', 'icon' => 'bi-person-badge',    'label' => 'Tags — Rounded', 'desc' => trans('staff::admin.setting.styles.5.label')],
+                ['value' => '6', 'icon' => 'bi-collection',      'label' => 'Tags — Slider',  'desc' => trans('staff::admin.setting.styles.6.label')],
             ];
             $currentStyle = $setting['style'] ?? '1';
         @endphp
@@ -502,12 +502,12 @@
 <script>
     (function () {
         const styleLabels = {
-            '1': 'Slider — Carousel défilant',
-            '2': 'List — Cartes en liste horizontale',
-            '3': 'Rounded — Avatars circulaires',
-            '4': 'Tags — List — Liste groupée par rôle',
-            '5': 'Tags — Rounded — Grille ronde par rôle',
-            '6': 'Tags — Slider — Carrousel par rôle',
+            '1': @json(trans('staff::admin.setting.styles.1.full')),
+            '2': @json(trans('staff::admin.setting.styles.2.full')),
+            '3': @json(trans('staff::admin.setting.styles.3.full')),
+            '4': @json(trans('staff::admin.setting.styles.4.full')),
+            '5': @json(trans('staff::admin.setting.styles.5.full')),
+            '6': @json(trans('staff::admin.setting.styles.6.full')),
         };
 
         function selectStyle(value) {

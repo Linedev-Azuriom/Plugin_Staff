@@ -95,7 +95,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td>Vous n'avez pas de tags</td>
+                                    <td>{{ trans('staff::admin.tag.no-tag') }}</td>
                                 </tr>
                             @endforelse
                             </tbody>

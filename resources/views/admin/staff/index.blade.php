@@ -118,7 +118,7 @@
 
         const count = document.createElement('small');
         count.className = 'text-muted';
-        count.textContent = rows.length + ' membre' + (rows.length > 1 ? 's' : '');
+        count.textContent = rows.length + ' ' + (rows.length > 1 ? @json(trans('staff::admin.staff.member-plural')) : @json(trans('staff::admin.staff.member-singular')));
 
         header.appendChild(badge);
         header.appendChild(count);
@@ -179,14 +179,14 @@
         });
 
         if (noTagRows.length > 0) {
-            const grp = buildRoleGroup('Sans rôle', '#6c757d', noTagRows);
+            const grp = buildRoleGroup(@json(trans('staff::admin.staff.no-role')), '#6c757d', noTagRows);
             if (grp) { container.appendChild(grp); hasContent = true; }
         }
 
         if (!hasContent) {
             const msg = document.createElement('p');
             msg.className = 'text-muted small px-1 py-3 text-center';
-            msg.textContent = 'Aucun membre ne correspond aux filtres.';
+            msg.textContent = @json(trans('staff::admin.staff.no-filter-match'));
             container.appendChild(msg);
         }
     }
@@ -421,7 +421,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
             </div>
         </div>
         <div class="col-md-6">
-            <div class="ldp2-label" style="--ldp2-c:#6c757d">Mes sites</div>
+            <div class="ldp2-label" style="--ldp2-c:#6c757d">{{ trans('staff::admin.promo.my-sites') }}</div>
             <div class="ldp2-accordion">
                 @foreach($promoExternal as $extItem)
                     <details class="ldp2-item">
@@ -431,7 +431,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                             <span class="ldp2-name">{{ $extItem['name'] }}</span>
                             <a href="{{ $extItem['url'] }}" target="_blank" rel="noopener"
                                class="ldp2-btn ldp2-btn-visit" onclick="event.stopPropagation()">
-                                <i class="bi bi-arrow-up-right-square"></i> Visiter
+                                <i class="bi bi-arrow-up-right-square"></i> {{ trans('staff::admin.promo.visit') }}
                             </a>
                             <span class="ldp2-chevron"><i class="bi bi-chevron-down"></i></span>
                         </summary>
@@ -441,7 +441,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
             </div>
         </div>
         <div class="col-md-6">
-            <div class="ldp2-label" style="--ldp2-c:#4f8ef7">Mes ressources Azuriom</div>
+            <div class="ldp2-label" style="--ldp2-c:#4f8ef7">{{ trans('staff::admin.promo.my-resources') }}</div>
             <div class="ldp2-accordion">
                 @foreach($promoResources as $promoItem)
                     <details class="ldp2-item">
@@ -454,7 +454,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                             </span>
                             <a href="{{ $promoItem['like_url'] }}" target="_blank" rel="noopener"
                                class="ldp2-btn ldp2-btn-like" onclick="event.stopPropagation()">
-                                <i class="bi bi-heart"></i> Liker
+                                <i class="bi bi-heart"></i> {{ trans('staff::admin.promo.like') }}
                             </a>
                             <span class="ldp2-chevron"><i class="bi bi-chevron-down"></i></span>
                         </summary>
@@ -542,14 +542,14 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                                 <button type="button" id="btnFreeOrder"
                                         class="btn btn-outline-secondary active"
                                         onclick="setMode('free')"
-                                        title="Ordre libre (glisser-déposer)">
-                                    <i class="bi bi-arrows-move me-1"></i>Ordre libre
+                                        title="{{ trans('staff::admin.staff.free-order') }}">
+                                    <i class="bi bi-arrows-move me-1"></i>{{ trans('staff::admin.staff.free-order') }}
                                 </button>
                                 <button type="button" id="btnByRole"
                                         class="btn btn-outline-secondary"
                                         onclick="setMode('role')"
-                                        title="Grouper par rôle / tag">
-                                    <i class="bi bi-tags me-1"></i>Par rôle
+                                        title="{{ trans('staff::admin.staff.by-role') }}">
+                                    <i class="bi bi-tags me-1"></i>{{ trans('staff::admin.staff.by-role') }}
                                 </button>
                             </div>
                         </div>
@@ -562,7 +562,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                                         <i class="bi bi-search"></i>
                                     </span>
                                     <input type="text" id="staffSearch" class="form-control border-start-0"
-                                           placeholder="Rechercher un membre…">
+                                           placeholder="{{ trans('staff::admin.staff.search-placeholder') }}">
                                 </div>
                                 <div class="d-flex flex-wrap gap-1 align-items-center">
                                     <button type="button"
@@ -570,7 +570,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                                             style="background:#6c757d;color:#fff"
                                             data-tag-filter="all"
                                             onclick="filterByTag('all')">
-                                        Tous
+                                        {{ trans('staff::admin.staff.all-tags') }}
                                     </button>
                                     @foreach($tags as $tag)
                                         <button type="button"
@@ -593,7 +593,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                                                 <th style="width:40px"></th>
                                                 <th style="width:46px"></th>
                                                 <th>{{ trans('messages.fields.name') }}</th>
-                                                <th>Rôles</th>
+                                                <th>{{ trans('staff::admin.staff.roles-column') }}</th>
                                                 <th style="width:100px" class="text-end">
                                                     {{ trans('messages.fields.action') }}
                                                 </th>
@@ -655,7 +655,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                                             <tr>
                                                 <td colspan="5" class="text-center text-muted py-4">
                                                     <i class="bi bi-people fs-3 d-block mb-1 opacity-25"></i>
-                                                    Vous n'avez créé aucun membre.
+                                                    {{ trans('staff::admin.staff.no-member') }}
                                                 </td>
                                             </tr>
                                         @endforelse
@@ -745,7 +745,7 @@ details.ldp2-item[open] .ldp2-chevron i{transform:rotate(180deg);}
                                         <tr>
                                             <td colspan="3" class="text-center text-muted py-4">
                                                 <i class="bi bi-tags fs-3 d-block mb-1 opacity-25"></i>
-                                                Aucun tag créé.
+                                                {{ trans('staff::admin.tag.no-tag') }}
                                             </td>
                                         </tr>
                                     @endforelse
