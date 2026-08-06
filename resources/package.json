@@ -20,7 +20,8 @@
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.32.7",
         "sass-loader": "^8.0.0",
-        "terser-webpack-plugin": "^5.2.4"
+        "terser-webpack-plugin": "^5.2.4",
+        "webpack": "5.66.0"
     },
     "dependencies": {
         "@glidejs/glide": "^3.4.1"
