@@ -1,29 +1,19 @@
 {
-    "name": "plugin staff",
+    "name": "plugin-staff",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "description": "Assets du plugin Staff pour Azuriom",
+    "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "dev": "node build.mjs",
+        "development": "node build.mjs",
+        "watch": "node build.mjs --watch",
+        "prod": "node build.mjs --prod",
+        "production": "node build.mjs --prod"
     },
     "devDependencies": {
-        "clean-webpack-plugin": "^4.0.0",
-        "laravel-mix": "^6.0.6",
-        "laravel-mix-clean": "^0.1.0",
-        "postcss": "^8.2.6",
-        "resolve-url-loader": "^3.1.0",
-        "sass": "^1.32.7",
-        "sass-loader": "^8.0.0",
-        "terser-webpack-plugin": "^5.2.4",
-        "webpack": "5.66.0"
+        "sass": "^1.102.0"
     },
     "dependencies": {
-        "@glidejs/glide": "^3.4.1"
+        "@glidejs/glide": "^3.7.1"
     }
 }

@@ -1,22 +1,8 @@
-# Depuis pnpm 10.6, les réglages pnpm vivent ici et non plus dans package.json
-# ni dans .npmrc.
-
-# laravel-mix 6 suppose le node_modules à plat de npm : il invoque `webpack`
-# comme une commande du PATH et fait des require() sur ses propres dépendances
-# transitives (webpack/lib/*, terser-webpack-plugin…). pnpm isole ces
-# dépendances par défaut, ce qui casse ces deux hypothèses.
-# `hoisted` reproduit l'arborescence à plat attendue par mix.
-nodeLinker: hoisted
-
-# pnpm bloque par défaut les scripts d'installation des dépendances (protection
-# contre l'exécution de code arbitraire au moment du install). Il faut se
-# prononcer explicitement sur chacun, sinon pnpm sort en ERR_PNPM_IGNORED_BUILDS
-# et bloque tous les `pnpm run`.
+# sass declare @parcel/watcher en optionalDependency, uniquement pour son
+# propre mode --watch. Le build du plugin (build.mjs) surveille les fichiers
+# avec node:fs, ce binaire natif ne sert donc jamais.
 #
-# Aucun de ces deux builds n'est nécessaire ici :
-#   - @parcel/watcher : le binding natif prebuilt linux-x64-glibc est déjà
-#     fourni par un paquet optionnel, compiler depuis les sources ne sert à rien.
-#   - es5-ext : son postinstall n'affiche qu'un message de soutien.
+# pnpm exige qu'on se prononce explicitement sur chaque script d'installation,
+# sinon il sort en ERR_PNPM_IGNORED_BUILDS et bloque aussi tous les `pnpm run`.
 allowBuilds:
   '@parcel/watcher': false
-  es5-ext: false

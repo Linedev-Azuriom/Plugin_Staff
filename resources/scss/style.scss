@@ -1,5 +1,8 @@
-@import "mixin";
-@import "variables";
+// `@use ... as *` remplace `@import`, deprecie et supprime dans Dart Sass 3.0.
+// `as *` conserve la portee globale : les futures variables et mixins restent
+// utilisables sans prefixe de namespace.
+@use "mixin" as *;
+@use "variables" as *;
 
 #staff {
 
