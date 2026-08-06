@@ -3,21 +3,18 @@
     "version": "1.0.0",
     "description": "Assets du plugin Staff pour Azuriom",
     "private": true,
+    "type": "module",
     "scripts": {
-        "dev": "pnpm run css && pnpm run copy",
+        "dev": "vite build --mode development",
         "development": "pnpm run dev",
-        "prod": "pnpm run css:prod && pnpm run copy",
+        "prod": "vite build",
         "production": "pnpm run prod",
-        "watch": "sass --watch scss/style.scss ../assets/css/style.css",
-        "css": "sass scss/style.scss ../assets/css/style.css",
-        "css:prod": "sass scss/style.scss ../assets/css/style.css --style=compressed --no-source-map && shx rm -f ../assets/css/style.css.map",
-        "copy": "pnpm run copy:js && pnpm run copy:glide",
-        "copy:js": "shx cp js/script.js ../assets/js/script.js",
-        "copy:glide": "shx cp node_modules/@glidejs/glide/dist/glide.min.js ../assets/js/ && shx cp node_modules/@glidejs/glide/dist/css/glide.core.min.css node_modules/@glidejs/glide/dist/css/glide.theme.min.css ../assets/css/"
+        "watch": "vite build --watch --mode development"
     },
     "devDependencies": {
         "sass": "^1.102.0",
-        "shx": "^0.4.0"
+        "vite": "^8.0.0",
+        "vite-plugin-static-copy": "^4.1.1"
     },
     "dependencies": {
         "@glidejs/glide": "^3.7.1"
