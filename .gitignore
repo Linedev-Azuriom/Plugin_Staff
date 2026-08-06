@@ -1,2 +1,7 @@
 # Claude Code : configuration locale, propre a chaque machine
 .claude/
+
+# Sourcemaps : generees par `pnpm dev`, jamais distribuees avec le plugin.
+# `pnpm prod` les supprime, cette regle evite de les committer entre-temps.
+assets/css/*.map
+assets/js/*.map

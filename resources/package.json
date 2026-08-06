@@ -4,14 +4,20 @@
     "description": "Assets du plugin Staff pour Azuriom",
     "private": true,
     "scripts": {
-        "dev": "node build.mjs",
-        "development": "node build.mjs",
-        "watch": "node build.mjs --watch",
-        "prod": "node build.mjs --prod",
-        "production": "node build.mjs --prod"
+        "dev": "pnpm run css && pnpm run copy",
+        "development": "pnpm run dev",
+        "prod": "pnpm run css:prod && pnpm run copy",
+        "production": "pnpm run prod",
+        "watch": "sass --watch scss/style.scss ../assets/css/style.css",
+        "css": "sass scss/style.scss ../assets/css/style.css",
+        "css:prod": "sass scss/style.scss ../assets/css/style.css --style=compressed --no-source-map && shx rm -f ../assets/css/style.css.map",
+        "copy": "pnpm run copy:js && pnpm run copy:glide",
+        "copy:js": "shx cp js/script.js ../assets/js/script.js",
+        "copy:glide": "shx cp node_modules/@glidejs/glide/dist/glide.min.js ../assets/js/ && shx cp node_modules/@glidejs/glide/dist/css/glide.core.min.css node_modules/@glidejs/glide/dist/css/glide.theme.min.css ../assets/css/"
     },
     "devDependencies": {
-        "sass": "^1.102.0"
+        "sass": "^1.102.0",
+        "shx": "^0.4.0"
     },
     "dependencies": {
         "@glidejs/glide": "^3.7.1"
