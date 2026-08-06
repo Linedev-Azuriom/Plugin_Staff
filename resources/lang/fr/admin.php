@@ -16,6 +16,16 @@ return [
         'created' => 'Staff créé.',
         'updated' => 'Staff mis à jour.',
         'deleted' => 'Staff supprimé.',
+        'no-member' => 'Vous n\'avez créé aucun membre.',
+        'no-role' => 'Sans rôle',
+        'no-filter-match' => 'Aucun membre ne correspond aux filtres.',
+        'free-order' => 'Ordre libre',
+        'by-role' => 'Par rôle',
+        'search-placeholder' => 'Rechercher un membre…',
+        'all-tags' => 'Tous',
+        'roles-column' => 'Rôles',
+        'member-singular' => 'membre',
+        'member-plural' => 'membres',
     ],
     'tag' => [
         'index' => 'Tags',
@@ -25,6 +35,7 @@ return [
         'created' => 'Tag créé.',
         'updated' => 'Tag mis à jour.',
         'deleted' => 'Tag supprimé.',
+        'no-tag' => 'Vous n\'avez aucun tag.',
     ],
     'link' => [
         'index' => 'Liens',
@@ -38,6 +49,24 @@ return [
         'created' => 'Paramètre créé.',
         'updated' => 'Paramètre mis à jour.',
         'deleted' => 'Paramètre supprimé.',
+        'display' => 'Affichage',
+        'layout' => 'Mise en page',
+        'columns' => 'Colonnes',
+        'column-unit' => 'colonne|colonnes',
+        'alignment-label' => 'Alignement',
+        'avatar-size' => 'Taille des avatars',
+        'avatar-size-note' => 'Styles Rounded & Tags Rounded',
+        'avatar-mobile-note' => 'Sur mobile, la taille est automatiquement réduite pour tenir dans l\'écran.',
+        'display-style' => 'Style d\'affichage',
+        'style-preview' => 'Aperçu du style sélectionné',
+        'styles' => [
+            '1' => ['label' => 'Carousel défilant',  'desc' => 'Carousel défilant — idéal pour de grandes équipes avec peu d\'espace.',    'full' => 'Slider — Carousel défilant'],
+            '2' => ['label' => 'Cartes en liste',     'desc' => 'Liste horizontale — vue compacte avec avatar, nom et rôle.',               'full' => 'List — Cartes en liste horizontale'],
+            '3' => ['label' => 'Avatars circulaires', 'desc' => 'Cartes arrondies — avatars circulaires, design épuré et moderne.',         'full' => 'Rounded — Avatars circulaires'],
+            '4' => ['label' => 'Liste par rôle',      'desc' => 'Liste groupée par tag — membres organisés par rôle en liste.',             'full' => 'Tags — List — Liste groupée par rôle'],
+            '5' => ['label' => 'Grille par rôle',     'desc' => 'Cartes rondes groupées par tag — organisation visuelle par rôle.',        'full' => 'Tags — Rounded — Grille ronde par rôle'],
+            '6' => ['label' => 'Slider par rôle',     'desc' => 'Slider par tag — un carrousel dédié à chaque groupe de rôles.',           'full' => 'Tags — Slider — Carrousel par rôle'],
+        ],
         'settings' => [
             'description' => 'Afficher la description directement dans la fenêtre du staff.',
             'effect' => 'Afficher l\'effet noir et blanc au survol de la fenêtre.',
@@ -45,5 +74,11 @@ return [
             'column' => 'Choisissez le nombre de staff à afficher horizontalement (sauf Slider)',
             'alignment' => 'Choisissez l\'alignement du contenu (sauf Slider)',
         ]
-    ]
+    ],
+    'promo' => [
+        'my-sites'     => 'Mes sites',
+        'my-resources' => 'Mes ressources Azuriom',
+        'visit'        => 'Visiter',
+        'like'         => 'Liker',
+    ],
 ];

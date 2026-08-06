@@ -75,15 +75,11 @@ class StaffServiceProvider extends BasePluginServiceProvider
     {
         return [
             'staff' => [
-                'name'       => trans('staff::admin.title'), // Traduction du nom de l'onglet
-                'type'       => 'dropdown',
-                'icon'       => 'bi bi-person-lines-fill', // Icône FontAwesome
-                'route'      => 'staff.admin.*', // Route de la page
-                'permission' => 'staff.staff', // (Optionnel) Permission nécessaire pour voir cet onglet
-                'items'      => [
-                    'staff.admin.index'      => trans('staff::admin.staff.index'),
-                    'staff.admin.tags.index' => trans('staff::admin.tag.index')
-                ],
+                'name'       => trans('staff::admin.title'),
+                'type'       => 'link',
+                'icon'       => 'bi bi-person-lines-fill',
+                'route'      => 'staff.admin.index',
+                'permission' => 'staff.staff',
             ],
         ];
     }

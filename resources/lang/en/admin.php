@@ -16,6 +16,16 @@ return [
         'created' => 'The Staff has been created.',
         'updated' => 'This Staff has been updated.',
         'deleted' => 'This Staff has been deleted.',
+        'no-member' => 'You haven\'t created any member.',
+        'no-role' => 'No role',
+        'no-filter-match' => 'No member matches the filters.',
+        'free-order' => 'Free order',
+        'by-role' => 'By role',
+        'search-placeholder' => 'Search a member…',
+        'all-tags' => 'All',
+        'roles-column' => 'Roles',
+        'member-singular' => 'member',
+        'member-plural' => 'members',
     ],
     'tag' => [
         'index' => 'Tags',
@@ -25,6 +35,7 @@ return [
         'created' => 'The tags  has been created.',
         'updated' => 'This tag has been updated.',
         'deleted' => 'This tag has been deleted.',
+        'no-tag' => 'You have no tags.',
     ],
     'link' => [
         'index' => 'Links',
@@ -38,6 +49,24 @@ return [
         'created' => 'The setting  has been created.',
         'updated' => 'This setting has been updated.',
         'deleted' => 'This setting has been deleted.',
+        'display' => 'Display',
+        'layout' => 'Layout',
+        'columns' => 'Columns',
+        'column-unit' => 'column|columns',
+        'alignment-label' => 'Alignment',
+        'avatar-size' => 'Avatar size',
+        'avatar-size-note' => 'Rounded & Tags Rounded styles',
+        'avatar-mobile-note' => 'On mobile, the size is automatically reduced to fit the screen.',
+        'display-style' => 'Display style',
+        'style-preview' => 'Preview of selected style',
+        'styles' => [
+            '1' => ['label' => 'Scrolling carousel',  'desc' => 'Scrolling carousel — ideal for large teams with little space.',      'full' => 'Slider — Scrolling carousel'],
+            '2' => ['label' => 'List cards',           'desc' => 'Horizontal list — compact view with avatar, name and role.',         'full' => 'List — Horizontal list cards'],
+            '3' => ['label' => 'Circular avatars',     'desc' => 'Rounded cards — circular avatars, clean and modern design.',         'full' => 'Rounded — Circular avatars'],
+            '4' => ['label' => 'List by role',         'desc' => 'Tag-grouped list — members organized by role in a list.',            'full' => 'Tags — List — List grouped by role'],
+            '5' => ['label' => 'Grid by role',         'desc' => 'Round cards grouped by tag — visual organization by role.',          'full' => 'Tags — Rounded — Round grid by role'],
+            '6' => ['label' => 'Slider by role',       'desc' => 'Slider by tag — a dedicated carousel for each role group.',          'full' => 'Tags — Slider — Carousel by role'],
+        ],
         'settings' => [
             'description' => 'Display the description directly in the staff window.',
             'effect' => 'Display the black and white effect when hovering over the window.',
@@ -45,5 +74,11 @@ return [
             'column' => 'Choose the number of staff to display horizontally (except Slider)',
             'alignment' => 'Choose the content alignment (except Slider)',
         ]
-    ]
+    ],
+    'promo' => [
+        'my-sites'     => 'My sites',
+        'my-resources' => 'My Azuriom resources',
+        'visit'        => 'Visit',
+        'like'         => 'Like',
+    ],
 ];

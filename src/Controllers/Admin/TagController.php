@@ -10,107 +10,45 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View
-     */
-    public function index()
-    {
-        $tags = Tag::orderBy('position')->get();
-
-        return view('staff::admin.tags.index', compact('tags'));
-    }
-
-    /**
-     * Update the order of the resources.
-     *
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function updateOrder(Request $request)
     {
         $this->validate($request, [
             'tags' => ['required', 'array'],
         ]);
 
-        $tags = $request->input('tags');
-
-        $tagPosition = 1;
-
-        foreach ($tags as $tag) {
-            $id = $tag['id'];
-            Tag::whereKey($id)->update([
-                'position' => $tagPosition++,
-            ]);
+        $position = 1;
+        foreach ($request->input('tags') as $tag) {
+            Tag::whereKey($tag['id'])->update(['position' => $position++]);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(TagRequest $request)
     {
-    }
+        Tag::create($request->validated());
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(TagRequest $tagRequest)
-    {
-        Tag::create($tagRequest->validated());
-
-        return redirect()->route('staff.admin.tags.index')
+        return redirect()->route('staff.admin.index')
             ->with('success', trans('staff::admin.tag.created'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\View\View
-     */
     public function edit(Tag $tag)
     {
         return view('staff::admin.tags.edit', compact('tag'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function update(TagRequest $request, Tag $tag)
     {
         $tag->update($request->validated());
 
-        return redirect()->route('staff.admin.tags.index')
+        return redirect()->route('staff.admin.index')
             ->with('success', trans('staff::admin.tag.updated'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Exception
-     */
     public function destroy(Tag $tag)
     {
-        $staffs = Staff::all();
-        foreach ($staffs as $staff) {
-            $staff->tags()->detach($tag);
-        }
+        Staff::all()->each(fn($staff) => $staff->tags()->detach($tag));
         $tag->delete();
 
-        return redirect()->route('staff.admin.tags.index')
+        return redirect()->route('staff.admin.index')
             ->with('success', trans('staff::admin.tag.deleted'));
     }
 }

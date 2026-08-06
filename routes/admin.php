@@ -6,25 +6,15 @@ use Azuriom\Plugin\Staff\Controllers\Admin\SettingController;
 use Azuriom\Plugin\Staff\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your plugin. These
-| routes are loaded by the RouteServiceProvider of your plugin within
-| a group which contains the "web" middleware group and your plugin name
-| as prefix. Now create something great!
-|
-*/
-
 Route::middleware('can:staff.admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
-    Route::resource('staff', AdminController::class)->except('index');
+    // Staff : pas de page create/show dédiée (formulaire intégré dans index)
+    Route::resource('staff', AdminController::class)->except(['index', 'create', 'show']);
     Route::post('staff/update-order', [AdminController::class, 'updateOrder'])->name('staff.update-order');
 
-    Route::resource('tags', TagController::class);
+    // Tags : pas de page index/create dédiée (intégrées dans les tabs de index)
+    Route::resource('tags', TagController::class)->only(['store', 'edit', 'update', 'destroy']);
     Route::post('tags/update-order', [TagController::class, 'updateOrder'])->name('tags.update-order');
 
     Route::put('settings', [SettingController::class, 'update'])->name('settings.update');

@@ -1,0 +1,8 @@
+# sass declare @parcel/watcher en optionalDependency, uniquement pour son
+# propre mode --watch. Le build du plugin (build.mjs) surveille les fichiers
+# avec node:fs, ce binaire natif ne sert donc jamais.
+#
+# pnpm exige qu'on se prononce explicitement sur chaque script d'installation,
+# sinon il sort en ERR_PNPM_IGNORED_BUILDS et bloque aussi tous les `pnpm run`.
+allowBuilds:
+  '@parcel/watcher': false

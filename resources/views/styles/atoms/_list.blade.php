@@ -1,49 +1,47 @@
-<div class="col-md-{{$column}} list-inline">
-    <div class="card flex-md-nowrap flex-row position-relative rounded-3 overflow-hidden h-100">
-        @if(!empty($staff->description && !$settings['description']))
-            <div class="description bg-white position-absolute top-0 left-0 p-3 rounded-2">
-                <p>{!! $staff->description !!}</p>
+@php
+    $imgSrc = isset($staff->image) && $staff->image !== null
+        ? image_url('../staff/'.$staff->image)
+        : (game()->name() === 'Minecraft' ? 'https://mc-heads.net/avatar/'.urlencode($staff->name).'/100' : null);
+    $imgHeight = $settings['avatar_size'] ?? 180;
+@endphp
+<div class="col-12 col-md-6 col-lg-{{ $column }}">
+    <div class="card h-100 border-0 shadow-sm">
+        @if($imgSrc)
+            <img src="{{ $imgSrc }}" alt="{{ $staff->name }}"
+                 class="card-img-top object-fit-cover"
+                 style="height:{{ $imgHeight }}px">
+        @else
+            <div class="bg-secondary-subtle d-flex align-items-center justify-content-center"
+                 style="height:{{ $imgHeight }}px">
+                <i class="bi bi-person-fill fs-1 text-secondary"></i>
             </div>
         @endif
-        <div class="w-25 d-flex align-items-center justify-content-center mx-3 position-relative ">
-            <div
-                class="w-100 img-hover-zoom img-hover-zoom--colorize {{ $settings['effect'] ?'hover': '' }}">
-                <img class="w-100 h-100"
-                     src="{{isset($staff->image) && $staff->image != null ? image_url('../staff/'.$staff->image) :  (game()->name() === 'Minecraft' ? 'https://mc-heads.net/avatar/'.$staff->name.'/100' : '') }}"
-                     alt="{{$staff->name}}">
-            </div>
-        </div>
-        <div class="w-75">
-            <div class="card-body">
-                <{{$title}} class="text-{{$alignment}} bg-transparent">{{$staff->name}}</{{$title}}>
-                @if($settings['description'])
-                    <p>{!! $staff->description !!}</p>
-                @endif
-                <div class="mb-1 d-flex flex-wrap justify-content-{{$alignment}}">
-                    @if($staff->tags->count() >= 1)
-                        @foreach($staff->tags as $tag)
-                            <span class="m-1"><span class="badge"
-                                                    style="background-color: {{$tag->color}}">{{$tag->name}}</span></span>
-                        @endforeach
-                    @endif
+        <div class="card-body text-{{ $alignment }}">
+            <{{ $title }} class="card-title h6 mb-1">{{ $staff->name }}</{{ $title }}>
+            @if($settings['description'] ?? false)
+                <div class="text-body-secondary small mb-2">{!! $staff->description !!}</div>
+            @endif
+            @if($staff->tags->isNotEmpty())
+                <div class="d-flex flex-wrap gap-1 mb-2 justify-content-{{ $alignment }}">
+                    @foreach($staff->tags as $tag)
+                        <span class="badge rounded-pill" style="background-color:{{ $tag->color }}">{{ $tag->name }}</span>
+                    @endforeach
                 </div>
-                <ul class="list-inline d-flex align-items-center justify-content-{{$alignment}}">
-                    @if($staff->links->count() >= 1)
-                        @foreach($staff->links as $link)
-                            <li class="list-inline-item">
-                                <a href="{{$link->url}}" title="{{$link->name}}"
-                                   target="_blank">
-                                    @if(\Illuminate\Support\Str::contains($link->icon,'<i'))
-                                        {!! $link->icon !!}
-                                    @else
-                                        <i class="{{$link->icon}}"></i>
-                                    @endif
-                                </a>
-                            </li>
-                        @endforeach
-                    @endif
-                </ul>
-            </div>
+            @endif
+            @if($staff->links->isNotEmpty())
+                <div class="d-flex flex-wrap gap-2 justify-content-{{ $alignment }}">
+                    @foreach($staff->links as $link)
+                        <a href="{{ $link->url }}" title="{{ $link->name }}" target="_blank" rel="noopener"
+                           class="link-secondary">
+                            @if(\Illuminate\Support\Str::contains($link->icon, '<i'))
+                                {!! $link->icon !!}
+                            @else
+                                <i class="{{ $link->icon }}"></i>
+                            @endif
+                        </a>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </div>
 </div>
